@@ -1,0 +1,9 @@
+/shelf/
+/workspace.xml
+
+### IntelliJ IDEA ###
+.idea
+*.iml
+
+### VS Code ###
+.vscode/
