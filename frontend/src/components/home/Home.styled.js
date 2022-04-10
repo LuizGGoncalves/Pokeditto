@@ -10,7 +10,6 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  font-family: "Play", sans-serif;
   height: 100vh;
   overflow-x: hidden;
   background-color: #edf2fa;

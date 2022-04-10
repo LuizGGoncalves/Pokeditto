@@ -2,13 +2,25 @@ import * as C from "./Home.styled";
 import Button from "../button";
 import mewtwo from "../../assets/charizard.svg";
 import blastoise from "../../assets/Blastoise.svg";
-import { CgPokemon } from "react-icons/cg";
-import { MdHeight } from "react-icons/md";
-import { GiWeight } from "react-icons/gi";
-import { AiOutlineFire } from "react-icons/ai";
-import { BiWater } from "react-icons/bi";
+
+import {
+  BiWater,
+  AiOutlineFire,
+  GiWeight,
+  MdHeight,
+  CgPokemon,
+} from "../../utils/icons";
+import { context } from "../../contexts/context.form";
+
+import { useContext } from "react";
 
 const Homepage = () => {
+  const { setRegistrationForm } = useContext(context);
+
+  const handleWithApplicationForm = () => {
+    setRegistrationForm((prev) => !prev);
+  };
+
   return (
     <C.Wrapper>
       <C.Header>
@@ -17,7 +29,12 @@ const Homepage = () => {
           <CgPokemon className="CgPokemon" />
         </strong>
         <span className="header__wrapper-buttons">
-          <Button className="header__button-connect">create account</Button>
+          <Button
+            className="header__button-connect"
+            onclick={handleWithApplicationForm}
+          >
+            create account
+          </Button>
           <Button className="header__button-connect">login</Button>
         </span>
       </C.Header>
@@ -27,7 +44,10 @@ const Homepage = () => {
           <p className="main__container__one-pharse">
             if you don't have an account, create your account below
           </p>
-          <Button className="main__container__one-button-start">
+          <Button
+            className="main__container__one-button-start"
+            onclick={handleWithApplicationForm}
+          >
             create account
           </Button>
         </section>
