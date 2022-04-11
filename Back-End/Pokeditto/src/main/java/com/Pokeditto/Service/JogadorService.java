@@ -16,5 +16,5 @@ public interface JogadorService {
      JogadorDto findById(Long id) throws UserNotFoundException;
      void delete(Long id);
      JogadorDto upDate(Long id, JogadorDto jogadorDto) throws UserNotFoundException;
-     Optional<Jogador> findByEmail(String email);
+     JogadorDto findByEmail(String email);
 }

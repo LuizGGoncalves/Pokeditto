@@ -8,7 +8,6 @@ import com.Pokeditto.Repository.JogadorRepository;
 import com.Pokeditto.Service.JogadorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -79,8 +78,8 @@ public class JogadorServiceImpl implements UserDetailsService, JogadorService {
         }
 
     @Override
-    public Optional<Jogador> findByEmail(String email) {
-        return jogadorRepository.findByEmail(email);
+    public JogadorDto findByEmail(String email) {
+        return modelMapper.map(jogadorRepository.findByEmail(email), JogadorDto.class);
     }
 
 }
