@@ -1,7 +1,7 @@
 import * as C from "./Button.styled";
 
-const Button = ({ children }) => {
-  return <C.Button>{children}</C.Button>;
+const Button = ({ children , onclick}) => {
+  return <C.Button onClick={onclick}>{children}</C.Button>;
 };
 
 export default Button;
