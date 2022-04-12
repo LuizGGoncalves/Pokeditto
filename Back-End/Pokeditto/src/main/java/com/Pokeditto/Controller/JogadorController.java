@@ -3,17 +3,19 @@ package com.Pokeditto.Controller;
 import com.Pokeditto.Exception.DefaultException;
 import com.Pokeditto.Exception.UserNotFoundException;
 import com.Pokeditto.Models.Jogador;
+import com.Pokeditto.Models.dto.JogadorDto;
 import com.Pokeditto.Repository.JogadorRepository;
+import com.Pokeditto.Service.JogadorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 
 @RestController
@@ -21,41 +23,37 @@ import java.util.Map;
 public class JogadorController {
     @Autowired
     JogadorRepository jogadorRepository;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    JogadorService jogadorService;
+
 
     @GetMapping()
     public ResponseEntity<?> listJogadores() {
-        return new ResponseEntity<>(jogadorRepository.findAll(),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(jogadorService.list(),HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> indexjogador(@PathVariable(value = "id") long id) throws UserNotFoundException {
-        if (jogadorRepository.findById(id) != null) {
-            return new ResponseEntity<>(jogadorRepository.findById(id), HttpStatus.ACCEPTED);
-        }
-        throw new UserNotFoundException("Usuario nao encontrado" + id);
-        }
+    public ResponseEntity<?> indexjogador(@AuthenticationPrincipal UserDetails principal ,@PathVariable(value = "id") long id) throws UserNotFoundException {
+        return new ResponseEntity<>(jogadorService.findById(id),HttpStatus.ACCEPTED);
+    }
 
     @PostMapping()
-    public ResponseEntity<?> createJogador(@RequestBody @Valid Jogador jogador) {
-        return new ResponseEntity<>(jogadorRepository.save(jogador), HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createJogador(@RequestBody @Valid Jogador jogador) throws DefaultException {
+        jogadorService.save(jogador);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> upDateJogador( @RequestBody Jogador jogador, @PathVariable(value = "id") long id) throws UserNotFoundException {
-            Jogador oldJogador = jogadorRepository.findById(id);
-            if(oldJogador == null) {
-                throw new UserNotFoundException("Usuario nao encontrado" + id);
-            }
-            oldJogador.upDateFrom(jogador);
-            return new ResponseEntity<>(jogadorRepository.save(oldJogador),HttpStatus.ACCEPTED);
+    public ResponseEntity<?> upDateJogador(@RequestBody JogadorDto jogador, @PathVariable(value = "id") Long id) throws UserNotFoundException {
+            return new ResponseEntity<>(jogadorService.upDate(id,jogador),HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
-    public Jogador deleteJogador(@PathVariable(value = "id") long id) throws UserNotFoundException {
-        Jogador jogador = jogadorRepository.findById(id);
-        if( jogador == null) throw new UserNotFoundException("Usuario nao encontrado" + id);
-        jogadorRepository.delete(jogador);
-        return jogador;
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void deleteJogador(@PathVariable(value = "id") Long id){
+        jogadorService.delete(id);
     }
 
 }
