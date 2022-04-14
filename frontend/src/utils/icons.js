@@ -1,12 +1,14 @@
 import { FcGoogle } from "react-icons/fc";
 import { GrFacebookOption } from "react-icons/gr";
 import { IoCloseSharp, IoEyeSharp } from "react-icons/io5";
+import { IoIosWater } from "react-icons/io";
 import { BsEyeSlashFill } from "react-icons/bs";
 import { CgPokemon } from "react-icons/cg";
 import { MdHeight } from "react-icons/md";
-import { GiWeight } from "react-icons/gi";
-import { AiOutlineFire } from "react-icons/ai";
+import { GiWeight, GiFlowerStar } from "react-icons/gi";
+import { AiTwotoneFire } from "react-icons/ai";
 import { BiWater } from "react-icons/bi";
+import { FaHandRock } from "react-icons/fa";
 
 export {
   FcGoogle,
@@ -17,6 +19,9 @@ export {
   CgPokemon,
   MdHeight,
   GiWeight,
-  AiOutlineFire,
+  AiTwotoneFire,
   BiWater,
+  IoIosWater,
+  FaHandRock,
+  GiFlowerStar,
 };
