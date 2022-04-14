@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import back from "./assets/background.png";
 
 export const Global = createGlobalStyle`
 *{
@@ -7,7 +8,9 @@ export const Global = createGlobalStyle`
     box-sizing: border-box;
 }
 body{
-    background-color: #754B91;
+    background-image: url(${back});
+    background-size:45vh;
+    background-repeat: repeat;
     font-family: "Play", sans-serif;
 }
 `;
