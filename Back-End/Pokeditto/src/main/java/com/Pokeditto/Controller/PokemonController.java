@@ -2,7 +2,9 @@ package com.Pokeditto.Controller;
 
 import com.Pokeditto.Exception.DefaultException;
 import com.Pokeditto.Exception.UserNotFoundException;
+import com.Pokeditto.Models.Jogador;
 import com.Pokeditto.Models.Pokemon;
+import com.Pokeditto.Models.dto.JogadorDto;
 import com.Pokeditto.Repository.PokemonRepository;
 import com.Pokeditto.Service.JogadorService;
 import com.Pokeditto.Service.PokemonService;
@@ -14,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/pokemon")
@@ -24,6 +25,8 @@ public class PokemonController {
     PokemonService pokemonService;
     @Autowired
     JogadorService jogadorService;
+    @Autowired
+    PokemonRepository pokemonRepository;
 
     @GetMapping()
     public ResponseEntity<?> pokemonList(){
@@ -36,8 +39,9 @@ public class PokemonController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> pokemonPost(@Valid @RequestBody Pokemon pokemon, @AuthenticationPrincipal UserDetails principal){
-        pokemon.setDono(jogadorService.findByEmail(principal.getUsername()).getId());
+    public ResponseEntity<?> pokemonPost(@Valid @RequestBody Pokemon pokemon, @AuthenticationPrincipal UserDetails principal) throws UserNotFoundException {
+        JogadorDto jogador = jogadorService.findByEmail(principal.getUsername());
+        pokemon.setDono(jogador.getId());
         return new ResponseEntity<>(pokemonService.save(pokemon),HttpStatus.CREATED);
     }
 

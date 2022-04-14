@@ -1,7 +1,9 @@
 package com.Pokeditto.filter;
 
+import com.Pokeditto.Models.dto.JogadorDtoLogin;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+
     private final AuthenticationManager authenticationManager;
 
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -27,12 +30,20 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     }
 
 
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-       String username = request.getParameter("username");
-       String password = request.getParameter("password");
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username,password);
-        return authenticationManager.authenticate(authenticationToken);
+        try {
+            String body = request.getReader().lines().collect(Collectors.joining());
+            ObjectMapper mapper = new ObjectMapper();
+            JogadorDtoLogin user = mapper.readValue(body, JogadorDtoLogin.class);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword());
+            return authenticationManager.authenticate(authenticationToken);
+        } catch (IOException e) {
+            e.printStackTrace();
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken("errado","errado");
+            return authenticationManager.authenticate(authenticationToken);
+        }
     }
 
     @Override

@@ -31,12 +31,12 @@ public class JogadorController {
 
     @GetMapping()
     public ResponseEntity<?> listJogadores() {
-        return new ResponseEntity<>(jogadorService.list(),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(jogadorService.list(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> indexjogador(@AuthenticationPrincipal UserDetails principal ,@PathVariable(value = "id") long id) throws UserNotFoundException {
-        return new ResponseEntity<>(jogadorService.findById(id),HttpStatus.ACCEPTED);
+    public ResponseEntity<?> indexjogador(@AuthenticationPrincipal UserDetails principal, @PathVariable(value = "id") long id) throws UserNotFoundException {
+        return new ResponseEntity<>(jogadorService.findById(id), HttpStatus.ACCEPTED);
     }
 
     @PostMapping()
@@ -47,13 +47,24 @@ public class JogadorController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> upDateJogador(@RequestBody JogadorDto jogador, @PathVariable(value = "id") Long id) throws UserNotFoundException {
-            return new ResponseEntity<>(jogadorService.upDate(id,jogador),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(jogadorService.upDate(id, jogador), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteJogador(@PathVariable(value = "id") Long id){
-        jogadorService.delete(id);
+    public void deleteJogador(@PathVariable(value = "id") Long id) {
+        jogadorRepository.findById(id).ifPresent((j) -> {
+            j.setEnabled(false);
+            jogadorRepository.save(j);
+        });
     }
 
+    @DeleteMapping()
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void deleteSelfJogador(@AuthenticationPrincipal UserDetails principal) throws DefaultException {
+        jogadorRepository.findByEmail(principal.getUsername()).ifPresent((j) -> {
+            j.setAccountNonLocked(false);
+            jogadorRepository.save(j);
+        });
+    }
 }

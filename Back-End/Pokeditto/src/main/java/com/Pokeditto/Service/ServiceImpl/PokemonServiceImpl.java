@@ -1,17 +1,13 @@
 package com.Pokeditto.Service.ServiceImpl;
 
 import com.Pokeditto.Exception.DefaultException;
-import com.Pokeditto.Exception.UserNotFoundException;
 import com.Pokeditto.Models.Jogador;
 import com.Pokeditto.Models.Pokemon;
-import com.Pokeditto.Models.dto.JogadorDto;
 import com.Pokeditto.Repository.JogadorRepository;
 import com.Pokeditto.Repository.PokemonRepository;
 import com.Pokeditto.Service.JogadorService;
 import com.Pokeditto.Service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -45,17 +41,19 @@ public class PokemonServiceImpl implements PokemonService {
     }
 
     @Override
-    public void delete(Long id, String jogadoEmail) throws DefaultException {
-       Jogador jogador = jogadorRepository.findByEmail(jogadoEmail).orElseThrow(()-> new UsernameNotFoundException("Jogador nao encontrado"));
+    public void delete(Long id, String jogadorEmail) throws DefaultException {
+       Jogador jogador = jogadorRepository.findByEmail(jogadorEmail).orElseThrow(()-> new UsernameNotFoundException("Jogador nao encontrado"));
        boolean errorStas = true;
         for (Pokemon pokemon: jogador.getPokemons()) {
-            if (pokemon.getId() == id) {
-                pokemonRepository.delete(pokemon);
+            if (pokemon.getId() == id){
                 errorStas = false;
+                jogador.getPokemons().remove(pokemon);
+                jogadorRepository.save(jogador);
             }
-            if (errorStas) throw new DefaultException("Nao foi possivel deletar o Pokemon");
         }
-    }
+            if (errorStas) throw new DefaultException("Nao foi possivel deletar o Pokemon");
+
+        }
 
     @Override
     public Pokemon upDate(Long id, Pokemon pokemon,String userEmail){
