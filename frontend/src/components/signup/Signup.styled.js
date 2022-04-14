@@ -18,6 +18,25 @@ export const Wrapper = styled.div`
     position: absolute;
     width: 520px;
     height: 560px;
+
+    @media (max-width: 1099px) {
+      display: none;
+    }
+  }
+  @media (max-width: 1099px) and (min-width: 500px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    box-shadow: none;
+  }
+  @media (max-width: 500px) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    box-shadow: none;
   }
 `;
 export const Form = styled.form`
@@ -57,6 +76,12 @@ export const Form = styled.form`
       transition: 0.4s ease;
       opacity: 0.8;
     }
+  }
+  @media (max-width: 1099px) and (min-width: 400px) {
+    width: 90%;
+  }
+  @media (max-width: 500px) {
+    width: 80%;
   }
 `;
 export const Fieldset = styled.fieldset`
