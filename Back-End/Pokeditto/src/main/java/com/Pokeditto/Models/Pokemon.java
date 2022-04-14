@@ -24,14 +24,25 @@ public class Pokemon {
     @Range(min = 1, max = 100,message = "Vida deve estar  entre 1 a 100")
     private float vida;
     @NotNull
-    private long dono;
+    private Long dono;
 
     public void upDateFrom(Pokemon pokemon) {
         if (pokemon.getName() != null) this.setName(pokemon.getName());
         if (pokemon.getAtaque() != 0) this.setAtaque(pokemon.getAtaque());
         if (pokemon.getDefesa() != 0) this.setDefesa(pokemon.getDefesa());
         if (pokemon.getVida() != 0) this.setVida(pokemon.getVida());
+    }
 
+    public Pokemon() {
+    }
+
+    public Pokemon(long id, String name, float ataque, float defesa, float vida, long dono) {
+        this.id = id;
+        this.name = name;
+        this.ataque = ataque;
+        this.defesa = defesa;
+        this.vida = vida;
+        this.dono = dono;
     }
 
     public long getId() {
@@ -46,7 +57,7 @@ public class Pokemon {
         return dono;
     }
 
-    public void setDono(long dono) {
+    public void setDono(Long dono) {
         this.dono = dono;
     }
 
