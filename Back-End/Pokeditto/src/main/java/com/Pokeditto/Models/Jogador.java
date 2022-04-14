@@ -28,14 +28,17 @@ public class Jogador implements Serializable , UserDetails {
     private String email;
     @NotNull
     private String password;
-    @OneToMany(targetEntity = Pokemon.class, cascade = CascadeType.ALL)
+    @Transient
+    @Length(min = 3, max = 35 , message = "A senha deve conter de 3 a 25 caracteres")
+    private String transientpassword;
+    @OneToMany(targetEntity = Pokemon.class, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "dono", referencedColumnName = "id")
     private Set<Pokemon> pokemons;
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isEnabled = true;
     private boolean credentialsNonExpired= true;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;
 
 
@@ -58,8 +61,8 @@ public class Jogador implements Serializable , UserDetails {
         optional.map(Jogador::getPokemons).ifPresent(this::setPokemons);
     }
 
-    public void addRole(String role){
-         this.getRoles().add(new Role("USER"));
+    public void addRole(Role role){
+         this.getRoles().add(role);
     }
 
     @Override
@@ -129,6 +132,18 @@ public class Jogador implements Serializable , UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getTransientpassword() {
+        return transientpassword;
+    }
+
+    public void setTransientpassword(String transientpassword) {
+        this.transientpassword = transientpassword;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
     }
 
     @Override

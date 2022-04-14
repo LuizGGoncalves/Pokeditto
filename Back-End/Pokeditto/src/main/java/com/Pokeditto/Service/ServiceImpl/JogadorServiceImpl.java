@@ -5,6 +5,7 @@ import com.Pokeditto.Exception.UserNotFoundException;
 import com.Pokeditto.Models.Jogador;
 import com.Pokeditto.Models.dto.JogadorDto;
 import com.Pokeditto.Repository.JogadorRepository;
+import com.Pokeditto.Repository.RoleRepository;
 import com.Pokeditto.Service.JogadorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class JogadorServiceImpl implements UserDetailsService, JogadorService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    RoleRepository roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -37,9 +40,11 @@ public class JogadorServiceImpl implements UserDetailsService, JogadorService {
     @Override
     public void save(Jogador jogador) throws DefaultException {
         if(jogadorRepository.findByEmail(jogador.getEmail()).isPresent()) throw new DefaultException("Email já cadastrado");
+        jogador.setTransientpassword(jogador.getPassword());
         jogador.setPassword(bCryptPasswordEncoder.encode(jogador.getPassword()));
         jogador.setRoles(new HashSet<>());
-        jogador.addRole("User");
+        jogador.addRole(roleRepository.findById(62L)
+                .orElseThrow(()-> new DefaultException("Nao foi possivel Permitir o Usuario")));
         jogadorRepository.save(jogador);
     }
 
@@ -79,7 +84,7 @@ public class JogadorServiceImpl implements UserDetailsService, JogadorService {
 
     @Override
     public JogadorDto findByEmail(String email) {
-        return modelMapper.map(jogadorRepository.findByEmail(email), JogadorDto.class);
+        return modelMapper.map(jogadorRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("Usuario nao encontrado")), JogadorDto.class);
     }
 
 }
