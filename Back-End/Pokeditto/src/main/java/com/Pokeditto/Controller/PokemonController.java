@@ -4,8 +4,10 @@ import com.Pokeditto.Exception.DefaultException;
 import com.Pokeditto.Exception.UserNotFoundException;
 import com.Pokeditto.Models.Jogador;
 import com.Pokeditto.Models.Pokemon;
+import com.Pokeditto.Models.PokemonTemplate;
 import com.Pokeditto.Models.dto.JogadorDto;
 import com.Pokeditto.Repository.PokemonRepository;
+import com.Pokeditto.Repository.PokemonTemplateRepository;
 import com.Pokeditto.Service.JogadorService;
 import com.Pokeditto.Service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class PokemonController {
     @Autowired
     JogadorService jogadorService;
     @Autowired
-    PokemonRepository pokemonRepository;
+    PokemonTemplateRepository pokemonTemplateRepository;
 
     @GetMapping()
     public ResponseEntity<?> pokemonList(){
@@ -38,15 +40,13 @@ public class PokemonController {
         return new ResponseEntity<>(pokemonService.findById(id),HttpStatus.ACCEPTED);
     }
 
-    @PostMapping()
-    public ResponseEntity<?> pokemonPost(@Valid @RequestBody Pokemon pokemon, @AuthenticationPrincipal UserDetails principal) throws UserNotFoundException {
-        JogadorDto jogador = jogadorService.findByEmail(principal.getUsername());
-        pokemon.setDono(jogador.getId());
-        return new ResponseEntity<>(pokemonService.save(pokemon),HttpStatus.CREATED);
+    @PostMapping("/{raca}")
+    public ResponseEntity<?> pokemonPost(@PathVariable String raca,@RequestBody Pokemon pokemon, @AuthenticationPrincipal UserDetails principal){
+        return new ResponseEntity<>(pokemonService.save(pokemon,raca,principal.getUsername()),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> pokemonPut(@AuthenticationPrincipal UserDetails finale, @RequestBody Pokemon pokemon, @PathVariable(value = "id") long id) throws UserNotFoundException {
+    public ResponseEntity<?> pokemonPut(@AuthenticationPrincipal UserDetails finale, @RequestBody Pokemon pokemon, @PathVariable(value = "id") long id) throws UserNotFoundException, DefaultException {
         Pokemon result = pokemonService.upDate(id,pokemon,finale.getUsername());
         if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(result,HttpStatus.ACCEPTED);
