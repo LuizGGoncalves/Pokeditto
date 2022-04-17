@@ -58,7 +58,6 @@ public class Jogador implements Serializable , UserDetails {
         optional.map(Jogador::getName).ifPresent(this::setName);
         optional.map(Jogador::getEmail).ifPresent(this::setEmail);
         optional.map(Jogador::getPassword).ifPresent(this::setPassword);
-        optional.map(Jogador::getPokemons).ifPresent(this::setPokemons);
     }
 
     public void addRole(Role role){
