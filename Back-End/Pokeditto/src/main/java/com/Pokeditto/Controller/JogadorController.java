@@ -19,6 +19,7 @@ import javax.validation.Valid;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/jogador")
 public class JogadorController {
     @Autowired
@@ -28,6 +29,11 @@ public class JogadorController {
     @Autowired
     JogadorService jogadorService;
 
+
+    @GetMapping("/online")
+    public ResponseEntity<?> jogadorLogado(@AuthenticationPrincipal UserDetails principal){
+        return new ResponseEntity<>(jogadorService.findByEmail(principal.getUsername()),HttpStatus.ACCEPTED);
+    }
 
     @GetMapping()
     public ResponseEntity<?> listJogadores() {
@@ -45,9 +51,9 @@ public class JogadorController {
         jogadorService.save(jogador);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> upDateJogador(@RequestBody JogadorDto jogador, @PathVariable(value = "id") Long id) throws UserNotFoundException {
-        return new ResponseEntity<>(jogadorService.upDate(id, jogador), HttpStatus.ACCEPTED);
+    @PutMapping()
+    public ResponseEntity<?> upDateJogador(@AuthenticationPrincipal UserDetails principal, @RequestBody JogadorDto jogador) throws UserNotFoundException {
+        return new ResponseEntity<>(jogadorService.upDate(principal.getUsername(), jogador), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
@@ -61,7 +67,7 @@ public class JogadorController {
 
     @DeleteMapping()
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteSelfJogador(@AuthenticationPrincipal UserDetails principal) throws DefaultException {
+    public void deleteSelfJogador(@AuthenticationPrincipal UserDetails principal) {
         jogadorRepository.findByEmail(principal.getUsername()).ifPresent((j) -> {
             j.setAccountNonLocked(false);
             jogadorRepository.save(j);
