@@ -136,15 +136,7 @@ export const Main = styled.main`
     }
   }
 
-  @keyframes animationCardTwo {
-    0% {
-      transform: translateY(0);
-    }
 
-    100% {
-      transform: translateY(-24px);
-    }
-  }
 
   .main__container__card-one {
     animation: 0.8s linear 0.8s infinite alternate animationCardOne;

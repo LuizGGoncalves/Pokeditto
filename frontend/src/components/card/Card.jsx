@@ -1,74 +1,13 @@
-import * as C from "./Home.styled";
-import Button from "../button";
-import charizard from "../../assets/Charizard.svg";
-import charmeleon from "../../assets/Charmeleon.svg";
-import { teste } from "../../api/api";
+import * as C from "./Card.styled";
 
-import {
-  AiTwotoneFire,
-  CgPokemon,
-  IoIosWater,
-  FaHandRock,
-  GiFlowerStar,
-} from "../../utils/icons";
-import { context } from "../../contexts/context.form";
-
-import { useContext } from "react";
-
-const Homepage = () => {
-  const { setRegistrationForm, setLoginOrRegister } = useContext(context);
-
-  const handleWithApplicationForm = () => {
-    setRegistrationForm((prev) => !prev);
-  };
-
-  const handleRedirectLogin = () => {
-    setLoginOrRegister(true);
-    setRegistrationForm(true);
-  };
-
-  const handlePost = () => {
-    teste();
-  };
-
+const Card = ({ children, colorOne , colorTwo }) => {
   return (
-    <C.Wrapper>
-      <C.Header onClick={handlePost}>
-        <strong className="header__title">
-          poke ditto
-          <CgPokemon className="CgPokemon" />
-        </strong>
-        <span className="header__wrapper-buttons">
-          <Button
-            className="header__button-connect"
-            onclick={handleWithApplicationForm}
-          >
-            create account
-          </Button>
-          <Button
-            className="header__button-connect"
-            onclick={handleRedirectLogin}
-          >
-            login
-          </Button>
-        </span>
-      </C.Header>
-      <C.Main>
-        <section className="main__container__one">
-          <h1 className="main__container__one-title">welcome, let's play?</h1>
-          <p className="main__container__one-pharse">
-            if you don't have an account, create your account below
-          </p>
-          <Button
-            className="main__container__one-button-start"
-            onclick={handleWithApplicationForm}
-          >
-            create account
-          </Button>
-        </section>
-        <section className="main__container__two">
-          <C.Card className="main__container__card-one">
-            <span className="main_container__card-header">
+    <C.Card colorOne={colorOne}
+    colorTwo={colorTwo}
+   
+    >
+      {children}
+      {/*          <span className="main_container__card-header">
               <img src={charmeleon} alt="" />
               <p className="main__container__card-evolution">
                 evolves from charmeleon
@@ -121,12 +60,9 @@ const Homepage = () => {
                   <GiFlowerStar className="GiFlowerStar" />
                 </span>
               </div>
-            </div>
-          </C.Card>
-        </section>
-      </C.Main>
-    </C.Wrapper>
+            </div> */}
+    </C.Card>
   );
 };
 
-export default Homepage;
+export default Card;

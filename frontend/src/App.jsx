@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import Form from "./pages/Form";
 import Dashboard from "./pages/Dashboard";
 import Spinner from "./components/Spinner";
+import SearchBox from "./components/dashboard/searchBox";
 
 import {
   BrowserRouter as Routers,
@@ -41,6 +42,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/teste" element={<Dashboard />} />
       </Routes>
     </Routers>
   );

@@ -1,5 +1,7 @@
+import Dash from "../components/dashboard";
+
 const Dashboard = () => {
-  return <div></div>;
+  return <Dash />;
 };
 
 export default Dashboard;
