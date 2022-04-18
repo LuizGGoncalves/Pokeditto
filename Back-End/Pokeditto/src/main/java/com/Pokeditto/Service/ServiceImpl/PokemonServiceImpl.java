@@ -5,14 +5,15 @@ import com.Pokeditto.Models.Jogador;
 import com.Pokeditto.Models.Pokemon;
 import com.Pokeditto.Repository.JogadorRepository;
 import com.Pokeditto.Repository.PokemonRepository;
+import com.Pokeditto.Repository.PokemonTemplateRepository;
 import com.Pokeditto.Service.JogadorService;
 import com.Pokeditto.Service.PokemonService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class PokemonServiceImpl implements PokemonService {
@@ -23,11 +24,19 @@ public class PokemonServiceImpl implements PokemonService {
     JogadorRepository jogadorRepository;
     @Autowired
     JogadorService jogadorService;
+    @Autowired
+    ModelMapper modelMapper;
+    @Autowired
+    PokemonTemplateRepository pokemonTemplateRepository;
 
 
     @Override
-    public Pokemon save(Pokemon pokemon) {
-        return pokemonRepository.save(pokemon);
+    public Pokemon save(Pokemon pokemon, String raca, String emailUsuario) {
+        Pokemon newPokemon = modelMapper.map(pokemonTemplateRepository.findByRaca(raca),Pokemon.class);
+        Jogador jogador = jogadorRepository.findByEmail(emailUsuario).orElseThrow(()-> new UsernameNotFoundException("Pokemon nao encontrado"));
+        newPokemon.setDono(jogador.getId());
+        newPokemon.setName(pokemon.getName());
+        return pokemonRepository.save(newPokemon);
     }
 
     @Override
@@ -43,27 +52,25 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public void delete(Long id, String jogadorEmail) throws DefaultException {
        Jogador jogador = jogadorRepository.findByEmail(jogadorEmail).orElseThrow(()-> new UsernameNotFoundException("Jogador nao encontrado"));
-       boolean errorStas = true;
-        for (Pokemon pokemon: jogador.getPokemons()) {
-            if (pokemon.getId() == id){
-                errorStas = false;
-                jogador.getPokemons().remove(pokemon);
-                jogadorRepository.save(jogador);
-            }
-        }
-            if (errorStas) throw new DefaultException("Nao foi possivel deletar o Pokemon");
+       Pokemon pokemonDb = pokemonRepository.findById(id).orElseThrow(()-> new DefaultException("Pokemon nao encontrado"));
+       if(jogador.getPokemons().contains(pokemonDb)){
+           jogador.getPokemons().remove(pokemonDb);
+           jogadorRepository.save(jogador);
+       }else {
+           throw new DefaultException("Pokemon nao existente/Nao pertence ao Jogador");
+       }
 
         }
 
     @Override
-    public Pokemon upDate(Long id, Pokemon pokemon,String userEmail){
-        Set<Pokemon> pokmeonsUser =  jogadorService.findByEmail(userEmail).getPokemons();
-        for (Pokemon p: pokmeonsUser){
-            if(p.getId() == id){
-                p.upDateFrom(pokemon);
-                return p;
-            }
+    public Pokemon upDate(Long id, Pokemon pokemon,String userEmail) throws DefaultException {
+        Jogador jogador =  jogadorRepository.findByEmail(userEmail).orElseThrow(()-> new UsernameNotFoundException("Pokemon nao encontrado"));
+        Pokemon pokemonDb = pokemonRepository.findById(id).orElseThrow(()-> new DefaultException("Pokemon nao encontrado"));
+        if (jogador.getPokemons().contains(pokemonDb)){
+            pokemonDb.upDateFrom(pokemon);
+            return pokemonRepository.save(pokemonDb);
+        }else{
+            throw new DefaultException("Nao foi possivel editar o pokemon");
         }
-        return null;
     }
 }

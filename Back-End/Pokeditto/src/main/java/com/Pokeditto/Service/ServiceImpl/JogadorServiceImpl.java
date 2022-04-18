@@ -75,9 +75,9 @@ public class JogadorServiceImpl implements UserDetailsService, JogadorService {
     }
 
     @Override
-    public JogadorDto upDate(Long id, JogadorDto jogadorDto) throws UserNotFoundException {
-        Jogador jogador = jogadorRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("Usuario nao encontrado" + id));
+    public JogadorDto upDate(String email, JogadorDto jogadorDto) throws UserNotFoundException {
+        Jogador jogador = jogadorRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("Usuario nao encontrado"));
         jogador.upDateFrom(modelMapper.map(jogadorDto, Jogador.class));
         return modelMapper.map(jogador, JogadorDto.class);
         }
