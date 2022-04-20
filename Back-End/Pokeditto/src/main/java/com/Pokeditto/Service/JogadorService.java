@@ -11,7 +11,7 @@ import java.util.Set;
 
 public interface JogadorService {
 
-     void save(Jogador jogador) throws DefaultException;
+     Jogador save(Jogador jogador) throws DefaultException;
      Set<JogadorDto> list();
      JogadorDto findById(Long id) throws UserNotFoundException;
      void delete(Long id);

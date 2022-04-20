@@ -46,9 +46,8 @@ public class JogadorController {
     }
 
     @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createJogador(@RequestBody @Valid Jogador jogador) throws DefaultException {
-        jogadorService.save(jogador);
+    public ResponseEntity<?> createJogador(@RequestBody @Valid Jogador jogador) throws DefaultException {
+        return new ResponseEntity<>(jogadorService.save(jogador),HttpStatus.CREATED);
     }
 
     @PutMapping()

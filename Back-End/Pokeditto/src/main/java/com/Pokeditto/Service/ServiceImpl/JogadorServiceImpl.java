@@ -38,14 +38,14 @@ public class JogadorServiceImpl implements UserDetailsService, JogadorService {
     }
 
     @Override
-    public void save(Jogador jogador) throws DefaultException {
+    public Jogador save(Jogador jogador) throws DefaultException {
         if(jogadorRepository.findByEmail(jogador.getEmail()).isPresent()) throw new DefaultException("Email já cadastrado");
         jogador.setTransientpassword(jogador.getPassword());
         jogador.setPassword(bCryptPasswordEncoder.encode(jogador.getPassword()));
         jogador.setRoles(new HashSet<>());
         jogador.addRole(roleRepository.findById(62L)
                 .orElseThrow(()-> new DefaultException("Nao foi possivel Permitir o Usuario")));
-        jogadorRepository.save(jogador);
+        return jogadorRepository.save(jogador);
     }
 
     @Override
