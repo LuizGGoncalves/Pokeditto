@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const Wrapper = styled.section`
   position: absolute;
   z-index: 1;
-  background: #fff;
+  background: #22334d;
   width: 100%;
   max-width: 660px;
-  display:none;
   height: 60vh;
-  padding:1rem 0;
+  padding: 1rem 0;
   left: 29.5vw;
+  display: flex;
   align-items: center;
   justify-content: start;
   flex-direction: column;
@@ -24,7 +24,17 @@ export const Wrapper = styled.section`
     height: 100%;
     max-height: 300px;
     background: #e4e4e4;
-    display:none;
+    overflow-y: scroll;
+    ::-webkit-scrollbar{
+      background-color: rgba(0,0,0,0.25);
+      border-radius: 10px 0 0 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D8403C;
+      border-radius: 20px;
+   
+    }
+  
   }
 `;
 
@@ -35,17 +45,17 @@ export const Form = styled.form`
   background: #e4e4e4;
   padding: 10px;
   .form__wrapper-input {
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: space-between;
 
-    .FiSearch{
-        width:25px;
-        height:25px;
+    .FiSearch {
+      width: 25px;
+      height: 25px;
     }
-    .IoCloseSharp{
-        width:25px;
-        height:25px;
+    .IoCloseSharp {
+      width: 25px;
+      height: 25px;
     }
   }
 

@@ -19,6 +19,7 @@ import { privates } from "../../contexts/private";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.auth";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../api/api";
 
 const Signin = ({ setLogin }) => {
   const { setRegistrationForm } = useContext(context);
@@ -30,7 +31,7 @@ const Signin = ({ setLogin }) => {
 
   const refPassword = useRef();
 
-  const navegate = useNavigate();
+  const navigate = useNavigate();
   const { setUser } = useContext(privates);
 
   const handleWithApplicationForm = () => {
@@ -69,8 +70,12 @@ const Signin = ({ setLogin }) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
-        localStorage.setItem("user", JSON.stringify(uid));
-        setUser(uid);
+        const name = user.displayName;
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ nickname: name, id: uid })
+        );
+        setUser({ nickname: name, id: uid });
         navegate("/home");
       }
     });
@@ -81,20 +86,24 @@ const Signin = ({ setLogin }) => {
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        localStorage.setItem("user", JSON.stringify(user.email));
-
-        setUser(user);
+        const uid = user.uid;
+        const name = user.displayName;
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ nickname: name, id: uid })
+        );
+        setUser({ nickname: name, id: uid });
         navegate("/home");
       }
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     handleValidationFieldEmail();
     handleValidFieldPassword();
 
-    if (!changeEmail || !changePassword || !valueCheckbox) {
+    if (!changeEmail || !changePassword) {
       return;
     } else if (
       !passwordIsValid.exec(changePassword) ||
@@ -102,7 +111,29 @@ const Signin = ({ setLogin }) => {
     ) {
       return;
     } else {
-      window.alert("batata");
+      try {
+        const user = await api.post("/login", {
+          email: changeEmail,
+          password: changePassword,
+        });
+
+        const token = await user.headers["x-access-token"];
+
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            email: changeEmail,
+            token: token,
+          })
+        );
+
+        setUser(user);
+        setChangeEmail("");
+        setChangePassword("");
+        navigate("/home");
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 

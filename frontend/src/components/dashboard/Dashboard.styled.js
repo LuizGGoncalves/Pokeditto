@@ -117,7 +117,7 @@ export const Wrapper = styled.section`
 
           .menu__profile-user {
             width: 100%;
-            max-width: 120px;
+            max-width: 150px;
             display: flex;
             align-items: center;
             justify-content: end;
@@ -127,11 +127,15 @@ export const Wrapper = styled.section`
             padding: 2px 4px;
             box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.34);
             border-radius: 40px;
+            font-size: 0.9rem;
+            text-transform: capitalize;
+            padding: 0 7px;
 
             .menu__user-avatar {
               width: 35px;
               height: 35px;
               display: flex;
+              object-fit:cover;
               clip-path: circle(50% at 50% 50%);
             }
           }
@@ -195,7 +199,7 @@ export const Wrapper = styled.section`
             color: #22334d;
             background: #e9e9ea;
             box-shadow: 0 0 5px 1px #080d3d;
-            white-space:nowrap;
+            white-space: nowrap;
             cursor: pointer;
 
             :hover {
@@ -321,5 +325,3 @@ export const Wrapper = styled.section`
     // container__main
   }
 `;
-
-

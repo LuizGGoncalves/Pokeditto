@@ -93,6 +93,26 @@ export const Fieldset = styled.fieldset`
   padding: 1rem 0;
   border: none;
 
+  .form__wrapper__input-name{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.6rem 0;
+    position: relative;
+    .name{
+      padding: 10px;
+      background: transparent;
+      outline: none;
+      border: 1px solid #20539f;
+      border-radius: 3px;
+      color: #fff;
+    }
+    .form__label__input-name{
+      font-size: 0.9rem;
+      margin-bottom: 3px;
+    }
+  }
+
   .form__wrapper__input-email {
     display: flex;
     flex-direction: column;

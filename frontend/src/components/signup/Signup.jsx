@@ -21,6 +21,7 @@ import Monkey from "../../assets/Monkey.svg";
 import { privates } from "../../contexts/private";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.auth";
+import { api } from "../../api/api";
 
 const Signup = ({ setLogin }) => {
   const { setRegistrationForm } = useContext(context);
@@ -30,7 +31,9 @@ const Signup = ({ setLogin }) => {
   const [borderFieldEmail, setBorderFieldEmail] = useState("#20539f");
   const [borderFieldPassword, setBorderFieldPassword] = useState("#20539f");
   const [valueCheckbox, setValueCheckbox] = useState(false);
-  const navegate = useNavigate();
+  const [changeName, setChangeName] = useState("");
+  const [borderFieldName, setBorderFieldName] = useState("#20539f");
+  const navigate = useNavigate();
   const { setUser } = useContext(privates);
 
   const refPassword = useRef();
@@ -57,6 +60,14 @@ const Signup = ({ setLogin }) => {
     }
   };
 
+  const handleValidationFieldName = () => {
+    if (!changeName) {
+      setBorderFieldName("#FF0000");
+    } else {
+      setBorderFieldName("#20539f");
+    }
+  };
+
   const handleValidFieldPassword = () => {
     if (!changePassword || !passwordIsValid.exec(changePassword)) {
       setBorderFieldPassword("#FF0000");
@@ -75,9 +86,13 @@ const Signup = ({ setLogin }) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
-        localStorage.setItem("user", JSON.stringify(uid));
-        setUser(uid);
-        navegate("/home");
+        const name = user.displayName;
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ nickname: name, id: uid })
+        );
+        setUser({ nickname: name, id: uid });
+        navigate("/home");
       }
     });
   };
@@ -87,19 +102,25 @@ const Signup = ({ setLogin }) => {
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        localStorage.setItem("user", JSON.stringify(user.email));
-
-        setUser(user);
-        navegate("/home");
+        const uid = user.uid;
+        const name = user.displayName;
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ nickname: name, id: uid })
+        );
+        setUser({ nickname: name, id: uid });
+        navigate("/home");
       }
     });
   };
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     handleValidationFieldEmail();
     handleValidFieldPassword();
+    handleValidationFieldName();
 
-    if (!changeEmail || !changePassword || !valueCheckbox) {
+    if (!changeEmail || !changePassword || !valueCheckbox || !changeName) {
       return;
     }
     if (
@@ -110,18 +131,28 @@ const Signup = ({ setLogin }) => {
     }
 
     try {
-      const user = {
-        emai: changeEmail,
-      };
-      localStorage.setItem("user", JSON.stringify(user));
+      const user = await api.post("/jogador", {
+        name: changeName,
+        email: changeEmail,
+        password: changePassword,
+      });
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          nickname: changeName,
+          email: changeEmail,
+        })
+      );
+
       setUser(user);
       setChangeEmail("");
       setChangePassword("");
-      navegate("/home");
+      navigate("/home");
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <C.Wrapper>
       <img src={Monkey} className="form__background-image" />
@@ -135,6 +166,21 @@ const Signup = ({ setLogin }) => {
           <mark>login</mark>
         </strong>
         <C.Fieldset>
+          <span className="form__wrapper__input-name">
+            <label htmlFor="" className="form__label__input-name">
+              name
+            </label>
+            <C.Input
+              className="name"
+              value={changeName}
+              onChange={(event) => setChangeName(event.target.value)}
+              type="text"
+              placeholder="nickname"
+              style={{
+                borderColor: `${borderFieldName}`,
+              }}
+            />
+          </span>
           <span className="form__wrapper__input-email">
             <label htmlFor="email" className="form__label__input-email">
               email

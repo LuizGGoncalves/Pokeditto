@@ -12,14 +12,40 @@ import {
 
 import SearchBox from "./searchBox/SearchBox";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { privates } from "../../contexts/private";
 
 const Dashboard = () => {
   const [Option, setOption] = useState("home");
+  const [closeAndOpenSearchBox, setCloseAndOpenSearchBox] = useState(false);
+  const { setUser } = useContext(privates);
+  const navigate = useNavigate();
+  const User = localStorage.getItem("user");
+  const parseUser = JSON.parse(User);
+
+  const handlExitUser = () => {
+    localStorage.removeItem("user");
+    const token = localStorage.getItem("token");
+
+    if (token) localStorage.removeItem("token");
+    setUser("");
+
+    navigate("/");
+  };
+
+  const handleRedirectUserForGaming = () => {
+    navigate("/teste");
+  };
 
   return (
     <C.Wrapper Option={Option}>
-      <SearchBox />
+      {closeAndOpenSearchBox && (
+        <SearchBox
+          closeAndOpen={closeAndOpenSearchBox}
+          setCloseAndOpen={setCloseAndOpenSearchBox}
+        />
+      )}
       <section className="container">
         <aside className="container__sidebar">
           <GoHome
@@ -42,7 +68,10 @@ const Dashboard = () => {
             className="container__sidebar__icon-AiOutlineUser"
             onClick={(event) => setOption("user")}
           />
-          <IoExitOutline className="container__sidebar__icon-IoExitOutline" />
+          <IoExitOutline
+            className="container__sidebar__icon-IoExitOutline"
+            onClick={handlExitUser}
+          />
         </aside>
         <main className="container__main">
           <header className="main__header__wrapper">
@@ -52,11 +81,14 @@ const Dashboard = () => {
             </span>
             <menu className="menu__wrapper">
               <span className="menu__wrapper-icons">
-                <FiSearch className="menu__icon-FiSearch" />
+                <FiSearch
+                  className="menu__icon-FiSearch"
+                  onClick={() => setCloseAndOpenSearchBox((prev) => true)}
+                />
                 <IoNotificationsOutline className="menu__icon-IoNotificationsOutline" />
               </span>
               <div className="menu__profile-user">
-            
+                {User ? parseUser.nickname : "..."}
                 <img
                   className="menu__user-avatar"
                   src="https://i.pinimg.com/736x/7e/34/0c/7e340ccb96ccadeb115075a4ed0841af.jpg"
@@ -77,7 +109,10 @@ const Dashboard = () => {
                 <h1 className="home__title">
                   it's time for a tea house party!
                 </h1>
-                <button className="home__button-play">
+                <button
+                  className="home__button-play"
+                  onClick={handleRedirectUserForGaming}
+                >
                   play now
                   <IoMdArrowDroprightCircle className="home__button-icon-IoMdArrowDroprightCircle" />
                 </button>
@@ -90,7 +125,7 @@ const Dashboard = () => {
                 Option === "main" ? { display: "block" } : { display: "none" }
               }
             >
-              <p>dsdfsfsd</p>
+              {/* main */}
             </section>
             {/*  */}
             <section
@@ -99,7 +134,7 @@ const Dashboard = () => {
                 Option === "medal" ? { display: "block" } : { display: "none" }
               }
             >
-              <p>batata</p>
+              {/* medal */}
             </section>
             {/*  */}
             <section
@@ -112,12 +147,11 @@ const Dashboard = () => {
                 <div className="main__container__card-body">
                   <div className="main__container__wrapper-card">
                     <strong className="main__container__user-description">
-                    Bridget Satterlee
+                      {User ? parseUser.nickname : "..."}
                     </strong>
                     <img src="https://i.pinimg.com/736x/7e/34/0c/7e340ccb96ccadeb115075a4ed0841af.jpg" />
                     <p className="main__container__user-level">level 0</p>
                     <span className="main__container__progress-bar">
-                      
                       <span className="progress"></span>
                     </span>
                   </div>
