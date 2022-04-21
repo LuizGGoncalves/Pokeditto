@@ -10,11 +10,9 @@ const PrivateRoute = ({ children }) => {
 
   useEffect(() => {
     const checkUser = localStorage.getItem("user");
-    // const token = localStorage.getItem("token");
 
     if (checkUser) {
       setUser(JSON.parse(checkUser));
-      //   api.defaults.headers.Authorization = `Bearer ${token}`;
     }
     setLoading(false);
   }, []);

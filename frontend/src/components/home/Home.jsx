@@ -2,7 +2,6 @@ import * as C from "./Home.styled";
 import Button from "../button";
 import charizard from "../../assets/Charizard.svg";
 import charmeleon from "../../assets/Charmeleon.svg";
-import { teste } from "../../api/api";
 
 import {
   AiTwotoneFire,
@@ -27,13 +26,9 @@ const Homepage = () => {
     setRegistrationForm(true);
   };
 
-  const handlePost = () => {
-    teste();
-  };
-
   return (
     <C.Wrapper>
-      <C.Header onClick={handlePost}>
+      <C.Header>
         <strong className="header__title">
           poke ditto
           <CgPokemon className="CgPokemon" />

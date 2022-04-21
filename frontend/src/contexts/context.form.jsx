@@ -7,9 +7,6 @@ const contextForm = ({ children }) => {
   const [isRegistrationForm, setRegistrationForm] = useState(false);
   const [loginOrRegister, setLoginOrRegister] = useState(false);
 
-  useEffect(() => {
-    console.log(isRegistrationForm);
-  }, [isRegistrationForm]);
 
   return (
     <context.Provider

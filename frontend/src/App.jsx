@@ -2,7 +2,6 @@ import Home from "./pages/Home";
 import Form from "./pages/Form";
 import Dashboard from "./pages/Dashboard";
 import Spinner from "./components/Spinner";
-import SearchBox from "./components/dashboard/searchBox";
 
 import {
   BrowserRouter as Routers,
@@ -14,6 +13,7 @@ import {
 import { context } from "./contexts/context.form";
 import { privates } from "./contexts/private";
 import { useContext, useEffect } from "react";
+import Game from "./pages/Gaming";
 
 function App() {
   const { isRegistrationForm } = useContext(context);
@@ -42,7 +42,14 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/teste" element={<Dashboard />} />
+        <Route
+          path="/game"
+          element={
+            <PrivateRoute>
+              <Game />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Routers>
   );

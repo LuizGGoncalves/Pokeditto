@@ -76,15 +76,3 @@ export const Wrapper = styled.div`
     }
   }
 `;
-
-// const Spinner = () => {
-//   return (
-//     <Wrapper>
-//       <div className="loader">
-//         <span></span>
-//       </div>
-//     </Wrapper>
-//   );
-// };
-
-// export default Spinner;
