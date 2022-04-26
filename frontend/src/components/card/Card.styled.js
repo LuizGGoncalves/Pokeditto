@@ -14,45 +14,6 @@ export const Card = styled.div`
     `linear-gradient(to bottom, ${props.theme.colorOneWrappingCard}, ${props.theme.colorTwoWrappingCard})`};
   display: flex;
   flex-direction: column;
-/* 
-
-  .main_container__card-header {
-    width: 100%;
-    ${(props) => `background: ${props.theme.colorHeaderCard}`};
-    border-radius: 10px 10px 0px 0px;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 2rem 2.8rem 2rem;
-    align-items: start;
-    position: relative;
-    gap: 10px;
-
-    .main__container__card-evolution {
-      color: ${(props) => props.theme.attributesColor};
-      text-transform: capitalize;
-    }
-
-    img {
-      width: 30px;
-      height: 30px;
-      object-fit: cover;
-      position: absolute;
-      left: 5px;
-    }
-    .main__container__card-hp {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2px;
-      padding: 2px;
-      color: ${(props) => props.theme.hp};
-
-      .hp {
-        font-weight: bold;
-        font-size: 1rem;
-      }
-    }
-  } */
 
   .main__wrapper-attributes-character {
     width: 100%;
@@ -62,9 +23,9 @@ export const Card = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
-    justify-content:space-between;
+    justify-content: space-between;
     position: relative;
-    flex:1;
+    flex: 1;
 
     overflow: hidden;
 
@@ -173,24 +134,15 @@ export const Card = styled.div`
     }
     .main__character-attributes-weakness {
       color: ${(props) => props.theme.attributesColor};
-      /* .IoIosWater {
-        color: skyblue;
-      } */
     }
     .main__character-attributes-resistence {
       color: ${(props) => props.theme.attributesColor};
-      /* .FaHandRock {
-        color: brown;
-      } */
     }
     .main__character-attributes-retreat-cost {
       color: ${(props) => props.theme.attributesColor};
       span {
         display: flex;
         gap: 3px;
-        /* .GiFlowerStar {
-          color: #2a2a2a;
-        } */
       }
     }
   }
@@ -225,24 +177,4 @@ export const Card = styled.div`
       }
     }
   }
-
-  /* @keyframes animationCardOne {
-    0% {
-      transform: translateY(0px);
-    }
-    100% {
-      transform: translateY(-20px);
-    }
-  }
-
-
-
-  .main__container__card-one {
-    animation: 0.8s linear 0.8s infinite alternate animationCardOne;
-    box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.26);
-
-    @media (max-width: 948px) {
-      display: none;
-    }
-  } */
 `;

@@ -9,13 +9,13 @@ import {
 import { IoIosWater, IoMdArrowDroprightCircle } from "react-icons/io";
 import { BsEyeSlashFill, BsWindowSidebar } from "react-icons/bs";
 import { CgPokemon } from "react-icons/cg";
-import { MdHeight } from "react-icons/md";
+import { MdHeight, MdDarkMode } from "react-icons/md";
 import { GiWeight, GiFlowerStar } from "react-icons/gi";
-import { AiTwotoneFire, AiOutlineUser } from "react-icons/ai";
+import { AiTwotoneFire, AiOutlineUser, AiFillFire } from "react-icons/ai";
 import { BiWater, BiMedal } from "react-icons/bi";
 import { FaHandRock } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
-import { GoHome } from "react-icons/go";
+import { GoHome, GoX } from "react-icons/go";
 
 export {
   FcGoogle,
@@ -39,4 +39,7 @@ export {
   AiOutlineUser,
   IoExitOutline,
   IoMdArrowDroprightCircle,
+  GoX,
+  MdDarkMode,
+  AiFillFire,
 };

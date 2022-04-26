@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import gengar from "../../assets/gengar.jpg";
 
 export const Wrapper = styled.section`
   background: #c3c3c3;
@@ -135,7 +134,7 @@ export const Wrapper = styled.section`
               width: 35px;
               height: 35px;
               display: flex;
-              object-fit:cover;
+              object-fit: cover;
               clip-path: circle(50% at 50% 50%);
             }
           }
@@ -216,7 +215,6 @@ export const Wrapper = styled.section`
         // main__container-home
       }
       .main__container-user {
-        // border: 2px solid red;
         display: flex;
         height: 100%;
         background: #010d19;
@@ -224,7 +222,6 @@ export const Wrapper = styled.section`
         padding: 10px 1rem;
 
         .main__container__wrapper-user {
-          // border: 2px solid blue;
           display: flex;
           gap: 10px;
           align-items: center;
@@ -315,6 +312,186 @@ export const Wrapper = styled.section`
                 object-fit: cover;
                 box-shadow: 0 0 3px 3px rgba(300, 300, 300, 0.25);
                 border-radius: 10px;
+              }
+            }
+          }
+        }
+      }
+
+      .main__container-main {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        border-radius: 0 0 30px 30px;
+
+        .wrapper__batle {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: space-around;
+
+          .menu__batle-characters {
+            width: 100%;
+            display: flex;
+            height: 100%;
+            min-height: 150px;
+            height: auto;
+            justify-content: space-around;
+            align-items: center;
+            gap: 2rem;
+            color: #e9e9ea;
+
+            .player {
+              border: 3px solid cyan;
+              padding: 1rem 10px;
+              background: #010d19;
+              box-shadow: 0px 7px 10px 0 #050505;
+              gap: 10px;
+              height: 100%;
+              display: flex;
+              width: 100%;
+              max-width: 150px;
+              align-items: center;
+              justify-content: space-between;
+              flex-direction: column;
+              text-align: center;
+              border-radius: 100px;
+
+              .name__character {
+                color: cyan;
+                font-weight: 600;
+              }
+              .name__player {
+                text-transform: uppercase;
+              }
+
+              .profile__player {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                .image__user {
+                  object-fit: cover;
+                  width: 100px;
+                  height: 100px;
+                  clip-path: circle(50% at 50% 50%);
+                }
+
+                .icon__profile {
+                  .icon {
+                    width: 20px;
+                    height: 20px;
+                    color: cyan;
+                  }
+                }
+              }
+            }
+            .cpu {
+              border: 3px solid #d8403c;
+              padding: 1rem 10px;
+              background: #010d19;
+              box-shadow: 0px 7px 10px 0 #050505;
+              width: 100%;
+              max-width: 150px;
+              gap: 10px;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              justify-content: space-between;
+              text-align: center;
+              border-radius: 100px;
+
+              .name__character {
+                color: #d8403c;
+                font-weight: 600;
+              }
+
+              .name__cpu {
+                text-transform: uppercase;
+              }
+
+              .profile__cpu {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                .image__cpu {
+                  object-fit: cover;
+                  clip-path: circle(50% at 50% 50%);
+                  width: 100px;
+                  height: 100px;
+                }
+                .icon__profile {
+                  .icon {
+                    width: 20px;
+                    height: 20px;
+                    color: #d8403c;
+                  }
+                }
+              }
+            }
+          }
+          .versus {
+            .versus__icon {
+              width: 3rem;
+              height: 3rem;
+              color: yellow;
+            }
+          }
+          .wrapper__buttons {
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+
+            .batle {
+              width: 100%;
+              max-width: 140px;
+              padding: 10px;
+              outline: none;
+              border-radius: 15px;
+              border: 2px solid red;
+              font-size: 0.9rem;
+              background: transparent;
+              color: #fff;
+              font-weight: 600;
+              box-shadow: 0 3px 5px rgba(0, 0, 0, 0.53);
+              cursor: pointer;
+
+              :hover {
+                transition: 0.4s linear;
+                opacity: 0.7;
+                background: red;
+              }
+            }
+            .capture {
+              width: 100%;
+              max-width: 140px;
+              padding: 10px;
+              outline: none;
+              border-radius: 15px;
+              border: 2px solid cyan;
+              font-size: 0.9rem;
+              background: transparent;
+              color: #fff;
+              font-weight: 600;
+              box-shadow: 0 3px 5px rgba(0, 0, 0, 0.53);
+              cursor: pointer;
+
+              :hover {
+                transition: 0.4s linear;
+                opacity: 0.7;
+                color: #050505;
+                background: cyan;
               }
             }
           }
