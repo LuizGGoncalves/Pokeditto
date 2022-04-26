@@ -8,6 +8,9 @@ import {
   AiOutlineUser,
   IoExitOutline,
   IoMdArrowDroprightCircle,
+  GoX,
+  AiFillFire,
+  MdDarkMode,
 } from "../../utils/icons";
 
 import SearchBox from "./searchBox/SearchBox";
@@ -91,7 +94,7 @@ const Dashboard = () => {
                 {User ? parseUser.nickname : "..."}
                 <img
                   className="menu__user-avatar"
-                  src="https://i.pinimg.com/736x/7e/34/0c/7e340ccb96ccadeb115075a4ed0841af.jpg"
+                  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.anatPcl_p0X4_qBigcUZHwHaHa%26pid%3DApi&f=1"
                 />
               </div>
             </menu>
@@ -125,6 +128,46 @@ const Dashboard = () => {
                 Option === "main" ? { display: "block" } : { display: "none" }
               }
             >
+              <section className="wrapper__batle">
+                <div className="menu__batle-characters">
+                  <div className="player">
+                    <strong className="name__player">player</strong>
+                    <p className="name__character">umbreon</p>
+                    <div className="profile__player">
+                      <img
+                        src="https://i.pinimg.com/564x/83/2a/a6/832aa691c3b028308f4e145fdc246bb8.jpg"
+                        alt="image profile"
+                        className="image__user"
+                      />
+                      <p className="icon__profile">
+                        <MdDarkMode className="icon" />
+                      </p>
+                    </div>
+                  </div>
+                  <div className="cpu">
+                    <strong className="name__cpu">cpu</strong>
+                    <p className="name__character">charmeleon</p>
+                    <div className="profile__cpu">
+                      <img
+                        src="https://i.pinimg.com/564x/ca/c9/55/cac955ec7c57810951a12cddbda3aaa2.jpg"
+                        alt="image cpu"
+                        className="image__cpu"
+                      />
+                      <p className="icon__profile">
+                        <AiFillFire className="icon" />
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="versus">
+                  <GoX className="versus__icon" />
+                </p>
+                <span className="wrapper__buttons">
+                  <button className="batle">batle</button>
+                  <button className="capture">capture</button>
+                </span>
+              </section>
               {/* main */}
             </section>
             {/*  */}
@@ -149,7 +192,7 @@ const Dashboard = () => {
                     <strong className="main__container__user-description">
                       {User ? parseUser.nickname : "..."}
                     </strong>
-                    <img src="https://i.pinimg.com/736x/7e/34/0c/7e340ccb96ccadeb115075a4ed0841af.jpg" />
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.anatPcl_p0X4_qBigcUZHwHaHa%26pid%3DApi&f=1" />
                     <p className="main__container__user-level">level 0</p>
                     <span className="main__container__progress-bar">
                       <span className="progress"></span>
