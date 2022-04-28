@@ -37,8 +37,8 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  const handleRedirectUserForGaming = () => {
-    navigate("/teste");
+  const handleRedirect = () => {
+    navigate("/home/account");
   };
 
   return (
@@ -90,7 +90,7 @@ const Dashboard = () => {
                 />
                 <IoNotificationsOutline className="menu__icon-IoNotificationsOutline" />
               </span>
-              <div className="menu__profile-user">
+              <div className="menu__profile-user" onClick={handleRedirect}>
                 {User ? parseUser.nickname : "..."}
                 <img
                   className="menu__user-avatar"
@@ -114,7 +114,7 @@ const Dashboard = () => {
                 </h1>
                 <button
                   className="home__button-play"
-                  onClick={handleRedirectUserForGaming}
+          
                 >
                   play now
                   <IoMdArrowDroprightCircle className="home__button-icon-IoMdArrowDroprightCircle" />

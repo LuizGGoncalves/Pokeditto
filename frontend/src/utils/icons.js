@@ -6,7 +6,11 @@ import {
   IoExitOutline,
   IoNotificationsOutline,
 } from "react-icons/io5";
-import { IoIosWater, IoMdArrowDroprightCircle } from "react-icons/io";
+import {
+  IoIosWater,
+  IoMdArrowDroprightCircle,
+  IoIosArrowBack,
+} from "react-icons/io";
 import { BsEyeSlashFill, BsWindowSidebar } from "react-icons/bs";
 import { CgPokemon } from "react-icons/cg";
 import { MdHeight, MdDarkMode } from "react-icons/md";
@@ -16,6 +20,7 @@ import { BiWater, BiMedal } from "react-icons/bi";
 import { FaHandRock } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { GoHome, GoX } from "react-icons/go";
+import { RiPencilFill } from "react-icons/ri";
 
 export {
   FcGoogle,
@@ -42,4 +47,6 @@ export {
   GoX,
   MdDarkMode,
   AiFillFire,
+  IoIosArrowBack,
+  RiPencilFill,
 };

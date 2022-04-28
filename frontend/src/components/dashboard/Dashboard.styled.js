@@ -122,13 +122,14 @@ export const Wrapper = styled.section`
             justify-content: end;
             gap: 10px;
             background: #040507;
-            color: #d8403c;
+            color: #fff;
             padding: 2px 4px;
             box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.34);
             border-radius: 40px;
             font-size: 0.9rem;
             text-transform: capitalize;
             padding: 0 7px;
+            cursor:pointer;
 
             .menu__user-avatar {
               width: 35px;

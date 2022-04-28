@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import Form from "./pages/Form";
 import Dashboard from "./pages/Dashboard";
 import Spinner from "./components/Spinner";
+import Account from "./components/account-settings";
 
 import {
   BrowserRouter as Routers,
@@ -12,8 +13,7 @@ import {
 
 import { context } from "./contexts/context.form";
 import { privates } from "./contexts/private";
-import { useContext, useEffect } from "react";
-
+import { useContext } from "react";
 
 function App() {
   const { isRegistrationForm } = useContext(context);
@@ -42,7 +42,7 @@ function App() {
             </PrivateRoute>
           }
         />
-    
+        <Route path="/home/account" element={ <PrivateRoute><Account /> </PrivateRoute>} />
       </Routes>
     </Routers>
   );
