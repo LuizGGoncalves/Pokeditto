@@ -46,7 +46,7 @@ export const Form = styled.form`
       justify-content: center;
       color: #fefefe;
       padding: 5px;
-      cursor:pointer;
+      cursor: pointer;
     }
 
     .form__header__account__setting-title {
@@ -164,18 +164,19 @@ export const Form = styled.form`
         padding: 4px;
         pointer-events: ${(props) => (props.nick ? "visible" : "none")};
         background: transparent;
-        border: none;
+        border: ${(props) => (props.IsEditNick ? "1px solid #fd8c8c" : "none")};
+        outline: none;
         color: #fefefe;
       }
-
-
 
       .input__email {
         width: 80%;
         padding: 4px;
         pointer-events: ${(props) => (props.edit ? "visible" : "none")};
         background: transparent;
-        border: none;
+        border: ${(props) =>
+          props.IsEditEmail ? "1px solid #fd8c8c" : "none"};
+        outline: none;
         color: #fefefe;
       }
 
@@ -191,6 +192,7 @@ export const Form = styled.form`
         background: transparent;
         color: #fff;
         border: none;
+        outline: none;
       }
 
       label {

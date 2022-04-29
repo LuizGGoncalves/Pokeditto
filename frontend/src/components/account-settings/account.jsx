@@ -1,50 +1,54 @@
 import * as C from "./account.styled";
 import { IoIosArrowBack, RiPencilFill } from "../../utils/icons";
-import { useRef, useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Account = () => {
   const [password, setPassword] = useState(false);
   const [email, setEmail] = useState("janejoe@gmail.com");
   const [emailIsEdit, setEmailIsEdit] = useState(false);
   const [nickname, setNickname] = useState("jane3w432");
-  const [nicknameIsEdit , setNicknameIsEdit] = useState(false);
+  const [nicknameIsEdit, setNicknameIsEdit] = useState(false);
   const navigate = useNavigate();
-  const showPassword = useRef();
 
   const handleShowPassword = () => {
     setPassword((prev) => !prev);
-
-    password
-      ? (showPassword.current.type = "text")
-      : (showPassword.current.type = "password");
   };
   const handleEditEmail = (event) => {
     setEmail(event.target.value);
   };
 
   const handleEditNickname = (event) => {
-    setNickname(event.target.value)
-  }
+    setNickname(event.target.value);
+  };
 
   const handleNicknameIsEdit = () => {
-    setNicknameIsEdit(prev => !prev)
-  }
+    setNicknameIsEdit((prev) => !prev);
+  };
 
   const handleEmailIsEdit = () => {
     setEmailIsEdit((prev) => !prev);
   };
 
   const handleRedirect = () => {
-    navigate("/home")
-  }
+    navigate("/home");
+  };
 
   return (
     <C.Wrapper>
-      <C.Form onSubmit={(event) => event.preventDefault()} edit={emailIsEdit} nick={nicknameIsEdit}>
+      <C.Form
+        onSubmit={(event) => event.preventDefault()}
+        edit={emailIsEdit}
+        nick={nicknameIsEdit}
+        IsEditNick={nicknameIsEdit}
+        IsEditEmail={emailIsEdit}
+      >
         <header className="form__header__account-setting">
           <span className="form__header__account__setting-title">
-            <IoIosArrowBack className="form__header__account__setting-icon" onClick={handleRedirect}/>
+            <IoIosArrowBack
+              className="form__header__account__setting-icon"
+              onClick={handleRedirect}
+            />
             <h1 className="form__header__account__setting-title">my account</h1>
           </span>
           <span className="form__header__account__setting__profile-user">
@@ -60,9 +64,19 @@ const Account = () => {
         <fieldset className="form__body__account-setting">
           <span className="wrapper__inputs">
             <label htmlFor="displayname">display name</label>
-            <input type="text" className="input__name" onChange={handleEditNickname} value={nickname}/>
-        
-            <button className="button__name-edit" onClick={handleNicknameIsEdit}>edit</button>
+            <input
+              type="text"
+              className="input__name"
+              onChange={handleEditNickname}
+              value={nickname}
+            />
+
+            <button
+              className="button__name-edit"
+              onClick={handleNicknameIsEdit}
+            >
+              {nicknameIsEdit ? "save" : "edit"}
+            </button>
           </span>
           <span className="wrapper__inputs">
             <label htmlFor="email">email</label>
@@ -80,17 +94,16 @@ const Account = () => {
           <span className="wrapper__inputs">
             <label htmlFor="password">password</label>
             <input
-              type="password"
+              type={password ? "text" : "password"}
               className="input__password"
               value="34324654654"
-              ref={showPassword}
             />
 
             <button
               className="button__password-change"
               onClick={handleShowPassword}
             >
-              change
+              {password ? "hide" : "view"}
             </button>
           </span>
         </fieldset>
