@@ -85,6 +85,7 @@ export const Form = styled.form`
       border-radius: 50%;
       padding: 3px;
       color: #050505;
+      cursor: pointer;
     }
     .profile-name {
       text-transform: capitalize;
@@ -142,6 +143,7 @@ export const Form = styled.form`
           opacity: 0.7;
         }
       }
+      .button__password-edit,
       .button__password-change {
         width: 100%;
         max-width: 70px;
@@ -150,6 +152,7 @@ export const Form = styled.form`
         border-color: #414052;
         color: #fff;
         text-align: center;
+
         outline: none;
         border-radius: 6px;
         cursor: pointer;
@@ -159,12 +162,16 @@ export const Form = styled.form`
         }
       }
 
+      .button__password-edit {
+        margin-right: 5px;
+      }
+
       .input__name {
         width: 80%;
         padding: 4px;
         pointer-events: ${(props) => (props.nick ? "visible" : "none")};
         background: transparent;
-        border: ${(props) => (props.IsEditNick ? "1px solid #fd8c8c" : "none")};
+        border: none;
         outline: none;
         color: #fefefe;
       }
@@ -188,10 +195,11 @@ export const Form = styled.form`
       .input__password {
         width: 80%;
         padding: 4px;
-        pointer-events: none;
+        pointer-events: ${(props) => (props.editPassword ? "visible" : "none")};
         background: transparent;
         color: #fff;
-        border: none;
+        border: ${(props) =>
+          props.editPassword ? "1px solid #fd8c8c" : "none"};
         outline: none;
       }
 
