@@ -128,7 +128,7 @@ export const Wrapper = styled.section`
             border-radius: 40px;
             font-size: 0.9rem;
             text-transform: capitalize;
-            padding: 0 7px;
+            padding: 4px 7px;
             cursor:pointer;
 
             .menu__user-avatar {

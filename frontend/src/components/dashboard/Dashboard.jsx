@@ -18,6 +18,7 @@ import SearchBox from "./searchBox/SearchBox";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { privates } from "../../contexts/private";
+import { context } from "../../contexts/context.form";
 
 const Dashboard = () => {
   const [Option, setOption] = useState("home");
@@ -26,6 +27,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const User = localStorage.getItem("user");
   const parseUser = JSON.parse(User);
+  const { image } = useContext(context);
 
   const handlExitUser = () => {
     localStorage.removeItem("user");
@@ -94,7 +96,11 @@ const Dashboard = () => {
                 {User ? parseUser.nickname : "..."}
                 <img
                   className="menu__user-avatar"
-                  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.anatPcl_p0X4_qBigcUZHwHaHa%26pid%3DApi&f=1"
+                  src={
+                    image.length > 0
+                      ? image
+                      : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.anatPcl_p0X4_qBigcUZHwHaHa%26pid%3DApi&f=1"
+                  }
                 />
               </div>
             </menu>
@@ -112,10 +118,7 @@ const Dashboard = () => {
                 <h1 className="home__title">
                   it's time for a tea house party!
                 </h1>
-                <button
-                  className="home__button-play"
-          
-                >
+                <button className="home__button-play">
                   play now
                   <IoMdArrowDroprightCircle className="home__button-icon-IoMdArrowDroprightCircle" />
                 </button>
@@ -192,7 +195,13 @@ const Dashboard = () => {
                     <strong className="main__container__user-description">
                       {User ? parseUser.nickname : "..."}
                     </strong>
-                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.anatPcl_p0X4_qBigcUZHwHaHa%26pid%3DApi&f=1" />
+                    <img
+                      src={
+                        image.length > 0
+                          ? image
+                          : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.anatPcl_p0X4_qBigcUZHwHaHa%26pid%3DApi&f=1"
+                      }
+                    />
                     <p className="main__container__user-level">level 0</p>
                     <span className="main__container__progress-bar">
                       <span className="progress"></span>
