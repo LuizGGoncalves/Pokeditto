@@ -71,11 +71,12 @@ const Signin = ({ setLogin }) => {
       if (user) {
         const uid = user.uid;
         const name = user.displayName;
+        const email = user.email;
         localStorage.setItem(
           "user",
-          JSON.stringify({ nickname: name, id: uid })
+          JSON.stringify({ nickname: name, id: uid , email: email})
         );
-        setUser({ nickname: name, id: uid });
+        setUser({ nickname: name, id: uid , email: email});
         navegate("/home");
       }
     });
@@ -88,11 +89,12 @@ const Signin = ({ setLogin }) => {
       if (user) {
         const uid = user.uid;
         const name = user.displayName;
+        const email = user.email;
         localStorage.setItem(
           "user",
-          JSON.stringify({ nickname: name, id: uid })
+          JSON.stringify({ nickname: name, id: uid , email:email})
         );
-        setUser({ nickname: name, id: uid });
+        setUser({ nickname: name, id: uid  , email: email});
         navegate("/home");
       }
     });
