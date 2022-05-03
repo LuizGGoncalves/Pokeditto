@@ -8,6 +8,9 @@ import {
   AiOutlineUser,
   IoExitOutline,
   IoMdArrowDroprightCircle,
+  GoX,
+  AiFillFire,
+  MdDarkMode,
 } from "../../utils/icons";
 
 import SearchBox from "./searchBox/SearchBox";
@@ -15,14 +18,17 @@ import SearchBox from "./searchBox/SearchBox";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { privates } from "../../contexts/private";
+import { context } from "../../contexts/context.form";
 
 const Dashboard = () => {
   const [Option, setOption] = useState("home");
+
   const [closeAndOpenSearchBox, setCloseAndOpenSearchBox] = useState(false);
   const { setUser } = useContext(privates);
   const navigate = useNavigate();
   const User = localStorage.getItem("user");
   const parseUser = JSON.parse(User);
+  const { image } = useContext(context);
 
   const handlExitUser = () => {
     localStorage.removeItem("user");
@@ -34,8 +40,8 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  const handleRedirectUserForGaming = () => {
-    navigate("/teste");
+  const handleRedirect = () => {
+    navigate("/home/account");
   };
 
   return (
@@ -51,22 +57,27 @@ const Dashboard = () => {
           <GoHome
             value="home"
             className="container__sidebar__icon-GoHome"
-            onClick={(event) => setOption("home")}
+            onClick={() => setOption("home")}
           />
           <BsWindowSidebar
             value="main"
             className="container__sidebar__icon-BsWindowSidebar"
-            onClick={(event) => setOption("main")}
+            onClick={() => setOption("main")}
           />
           <BiMedal
             value="medal"
             className="container__sidebar__icon-BiMedal"
-            onClick={(event) => setOption("medal")}
+            onClick={() => setOption("medal")}
+          />
+          <IoNotificationsOutline
+            value="notification"
+            className="container__sidebar__icon-notification"
+            onClick={() => setOption("notification")}
           />
           <AiOutlineUser
             value="user"
             className="container__sidebar__icon-AiOutlineUser"
-            onClick={(event) => setOption("user")}
+            onClick={() => setOption("user")}
           />
           <IoExitOutline
             className="container__sidebar__icon-IoExitOutline"
@@ -85,13 +96,16 @@ const Dashboard = () => {
                   className="menu__icon-FiSearch"
                   onClick={() => setCloseAndOpenSearchBox((prev) => true)}
                 />
-                <IoNotificationsOutline className="menu__icon-IoNotificationsOutline" />
               </span>
-              <div className="menu__profile-user">
+              <div className="menu__profile-user" onClick={handleRedirect}>
                 {User ? parseUser.nickname : "..."}
                 <img
                   className="menu__user-avatar"
-                  src="https://i.pinimg.com/736x/7e/34/0c/7e340ccb96ccadeb115075a4ed0841af.jpg"
+                  src={
+                    image.length > 0
+                      ? image
+                      : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.anatPcl_p0X4_qBigcUZHwHaHa%26pid%3DApi&f=1"
+                  }
                 />
               </div>
             </menu>
@@ -109,10 +123,7 @@ const Dashboard = () => {
                 <h1 className="home__title">
                   it's time for a tea house party!
                 </h1>
-                <button
-                  className="home__button-play"
-                  onClick={handleRedirectUserForGaming}
-                >
+                <button className="home__button-play">
                   play now
                   <IoMdArrowDroprightCircle className="home__button-icon-IoMdArrowDroprightCircle" />
                 </button>
@@ -125,6 +136,46 @@ const Dashboard = () => {
                 Option === "main" ? { display: "block" } : { display: "none" }
               }
             >
+              <section className="wrapper__batle">
+                <div className="menu__batle-characters">
+                  <div className="player">
+                    <strong className="name__player">player</strong>
+                    <p className="name__character">umbreon</p>
+                    <div className="profile__player">
+                      <img
+                        src="https://i.pinimg.com/564x/83/2a/a6/832aa691c3b028308f4e145fdc246bb8.jpg"
+                        alt="image profile"
+                        className="image__user"
+                      />
+                      <p className="icon__profile">
+                        <MdDarkMode className="icon" />
+                      </p>
+                    </div>
+                  </div>
+                  <div className="cpu">
+                    <strong className="name__cpu">cpu</strong>
+                    <p className="name__character">charmeleon</p>
+                    <div className="profile__cpu">
+                      <img
+                        src="https://i.pinimg.com/564x/ca/c9/55/cac955ec7c57810951a12cddbda3aaa2.jpg"
+                        alt="image cpu"
+                        className="image__cpu"
+                      />
+                      <p className="icon__profile">
+                        <AiFillFire className="icon" />
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="versus">
+                  <GoX className="versus__icon" />
+                </p>
+                <span className="wrapper__buttons">
+                  <button className="batle">batle</button>
+                  <button className="capture">capture</button>
+                </span>
+              </section>
               {/* main */}
             </section>
             {/*  */}
@@ -135,6 +186,17 @@ const Dashboard = () => {
               }
             >
               {/* medal */}
+            </section>
+            {/*  */}
+            <section
+              className="main__container-notification"
+              style={
+                Option === "notification"
+                  ? { display: "block" }
+                  : { display: "none" }
+              }
+            >
+              {/* notifications */}
             </section>
             {/*  */}
             <section
@@ -149,7 +211,13 @@ const Dashboard = () => {
                     <strong className="main__container__user-description">
                       {User ? parseUser.nickname : "..."}
                     </strong>
-                    <img src="https://i.pinimg.com/736x/7e/34/0c/7e340ccb96ccadeb115075a4ed0841af.jpg" />
+                    <img
+                      src={
+                        image.length > 0
+                          ? image
+                          : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.anatPcl_p0X4_qBigcUZHwHaHa%26pid%3DApi&f=1"
+                      }
+                    />
                     <p className="main__container__user-level">level 0</p>
                     <span className="main__container__progress-bar">
                       <span className="progress"></span>
@@ -166,7 +234,7 @@ const Dashboard = () => {
                   </div>
                   <div className="card-last-pokemon">
                     <strong>lucario</strong>
-                    <p>fighting/steel</p>
+                    <p>fighting</p>
                     <span className="pokemon"></span>
                     <img src="https://i.pinimg.com/736x/67/2e/13/672e13dfd7d3e90d9482dccbc7d8298b.jpg" />
                   </div>

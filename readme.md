@@ -26,9 +26,22 @@ Sample:
 
 ![](./frontend/src/assets/mobile-version-landpage.png)
 
-![](./frontend/src/assets/desktop-form.png)
+![](./frontend/src/assets/account-setting.png)
 
-![](./frontend/src/assets/mobile-form.png)
+![](./frontend/src/assets/batle-game.png)
+
+![](./frontend/src/assets/dashboard-user.png)
+
+![](./frontend/src/assets/dashboard-home.png)
+
+![](./frontend/src/assets/form-login.png)
+
+![](./frontend/src/assets/form-register.png)
+
+
+![](./frontend/src/assets/popup-search.png)
+
+![](./frontend/src/assets/mobile-dashboard.png)
 
 
 
