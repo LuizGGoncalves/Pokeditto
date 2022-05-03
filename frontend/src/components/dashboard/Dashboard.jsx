@@ -22,6 +22,7 @@ import { context } from "../../contexts/context.form";
 
 const Dashboard = () => {
   const [Option, setOption] = useState("home");
+
   const [closeAndOpenSearchBox, setCloseAndOpenSearchBox] = useState(false);
   const { setUser } = useContext(privates);
   const navigate = useNavigate();
@@ -56,22 +57,27 @@ const Dashboard = () => {
           <GoHome
             value="home"
             className="container__sidebar__icon-GoHome"
-            onClick={(event) => setOption("home")}
+            onClick={() => setOption("home")}
           />
           <BsWindowSidebar
             value="main"
             className="container__sidebar__icon-BsWindowSidebar"
-            onClick={(event) => setOption("main")}
+            onClick={() => setOption("main")}
           />
           <BiMedal
             value="medal"
             className="container__sidebar__icon-BiMedal"
-            onClick={(event) => setOption("medal")}
+            onClick={() => setOption("medal")}
+          />
+          <IoNotificationsOutline
+            value="notification"
+            className="container__sidebar__icon-notification"
+            onClick={() => setOption("notification")}
           />
           <AiOutlineUser
             value="user"
             className="container__sidebar__icon-AiOutlineUser"
-            onClick={(event) => setOption("user")}
+            onClick={() => setOption("user")}
           />
           <IoExitOutline
             className="container__sidebar__icon-IoExitOutline"
@@ -90,7 +96,6 @@ const Dashboard = () => {
                   className="menu__icon-FiSearch"
                   onClick={() => setCloseAndOpenSearchBox((prev) => true)}
                 />
-                <IoNotificationsOutline className="menu__icon-IoNotificationsOutline" />
               </span>
               <div className="menu__profile-user" onClick={handleRedirect}>
                 {User ? parseUser.nickname : "..."}
@@ -184,6 +189,17 @@ const Dashboard = () => {
             </section>
             {/*  */}
             <section
+              className="main__container-notification"
+              style={
+                Option === "notification"
+                  ? { display: "block" }
+                  : { display: "none" }
+              }
+            >
+              {/* notifications */}
+            </section>
+            {/*  */}
+            <section
               className="main__container-user"
               style={
                 Option === "user" ? { display: "block" } : { display: "none" }
@@ -218,7 +234,7 @@ const Dashboard = () => {
                   </div>
                   <div className="card-last-pokemon">
                     <strong>lucario</strong>
-                    <p>fighting/steel</p>
+                    <p>fighting</p>
                     <span className="pokemon"></span>
                     <img src="https://i.pinimg.com/736x/67/2e/13/672e13dfd7d3e90d9482dccbc7d8298b.jpg" />
                   </div>

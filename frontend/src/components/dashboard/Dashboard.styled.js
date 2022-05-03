@@ -8,6 +8,9 @@ export const Wrapper = styled.section`
   justify-content: center;
   position: relative;
 
+  @media (max-width: 765px) {
+  }
+
   .container {
     background: #050505;
     width: 100%;
@@ -18,19 +21,39 @@ export const Wrapper = styled.section`
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
     display: flex;
     justify-content: space-between;
+    @media (max-width: 765px) {
+      display: grid;
+      place-items: center;
+      justify-content: center;
+      background: #c3c3c3;
+      height: 100vh;
+      box-shadow: none;
+      justify-content: center;
+      margin: 0 20px;
+    }
 
     .container__sidebar {
       width: 100%;
       max-width: 100px;
       display: grid;
       place-items: center;
-      border-radius: 30px 0px 0px 30px;
+      border-radius: 30px 0 0 30px;
       background: #050505;
+
+      @media (max-width: 765px) {
+        border-radius: 30px 30px 0 0;
+        width: 100%;
+        padding: 2rem;
+        max-width: 100vw;
+        display: flex;
+        justify-content: space-between;
+      }
 
       .container__sidebar__icon-GoHome,
       .container__sidebar__icon-BsWindowSidebar,
       .container__sidebar__icon-BiMedal,
       .container__sidebar__icon-AiOutlineUser,
+      .container__sidebar__icon-notification,
       .container__sidebar__icon-IoExitOutline {
         width: 19px;
         height: 19px;
@@ -51,6 +74,10 @@ export const Wrapper = styled.section`
       .container__sidebar__icon-AiOutlineUser {
         color: ${(props) => (props.Option === "user" ? "#D8403C" : "#FDF7F2")};
       }
+      .container__sidebar__icon-notification {
+        color: ${(props) =>
+          props.Option === "notification" ? "#D8403C" : "#FDF7F2"};
+      }
       .container__sidebar__icon-IoExitOutline {
         color: #fdf7f2;
       }
@@ -64,10 +91,23 @@ export const Wrapper = styled.section`
       display: flex;
       flex-direction: column;
 
+      @media (max-width: 765px) {
+        border-radius: 0px;
+        height: 100%;
+        min-height: 1000px;
+        align-items: center;
+        justify-content: start;
+      }
+
       .main__header__wrapper {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        @media (max-width: 785px) {
+          padding: 0 5rem;
+        }
+
         .main__header__title {
           width: auto;
 
@@ -76,10 +116,19 @@ export const Wrapper = styled.section`
             font-weight: bold;
             letter-spacing: 1px;
             color: #d8403c;
+
+            @media (max-width: 765px) {
+              font-size: 1.4rem;
+              margin-right: 10px;
+            }
           }
           p {
             color: #e9e9ea;
             font-size: 0.9rem;
+
+            @media (max-width: 450px) {
+              margin-right: 10px;
+            }
           }
         }
 
@@ -90,14 +139,21 @@ export const Wrapper = styled.section`
           justify-content: end;
           padding: 1.3rem 0;
           gap: 10px;
+
+          @media (max-width: 600px) {
+            display: flex;
+            flex-direction: row-reverse;
+          }
+
           .menu__wrapper-icons {
-            width: 100%;
-            max-width: 100px;
+            width: auto;
+
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 6px 1rem;
+            justify-content: end;
+            padding: 3px;
+            @media (max-width: 450px) {
+            }
           }
           .menu__icon-FiSearch,
           .menu__icon-IoNotificationsOutline {
@@ -129,7 +185,7 @@ export const Wrapper = styled.section`
             font-size: 0.9rem;
             text-transform: capitalize;
             padding: 4px 7px;
-            cursor:pointer;
+            cursor: pointer;
 
             .menu__user-avatar {
               width: 35px;
@@ -146,9 +202,18 @@ export const Wrapper = styled.section`
   .container__main {
     display: flex;
 
+    @media (max-width: 764px) {
+      height: 100vw;
+    }
+
     .main__containers {
       height: 100%;
       padding: 10px;
+
+      @media (max-width: 764px) {
+        height: 100%;
+        max-height: 650px;
+      }
 
       .main__container-home {
         height: 40%;
@@ -222,11 +287,30 @@ export const Wrapper = styled.section`
         border-radius: 0 0 30px 30px;
         padding: 10px 1rem;
 
+        @media (max-width: 765px) {
+          display: grid;
+          padding: 0;
+          height: 100%;
+          height: 740px;
+          border-radius: 0;
+        }
+
         .main__container__wrapper-user {
           display: flex;
           gap: 10px;
           align-items: center;
           justify-content: space-between;
+
+          @media (max-width: 765px) {
+            display: grid;
+            place-items: center;
+            justify-content: center;
+            height: 100%;
+
+            padding: 0 2rem;
+            width: 100%;
+            gap: 0;
+          }
 
           .main__container__card-body {
             width: 100%;
@@ -241,6 +325,11 @@ export const Wrapper = styled.section`
             justify-content: space-between;
             border-radius: 10px;
 
+            @media (max-width: 765px) {
+              width: 80%;
+              height: 200px;
+            }
+
             .main__container__wrapper-card {
               width: 100%;
               height: 100%;
@@ -250,6 +339,10 @@ export const Wrapper = styled.section`
               justify-content: space-between;
               flex-direction: column;
               border: 1px solid #11624d;
+
+              @media (max-width: 378px) {
+                padding: 30px 50px;
+              }
 
               p,
               span,
@@ -283,10 +376,65 @@ export const Wrapper = styled.section`
           .main__container-card-last-pokemon {
             display: flex;
             align-items: center;
-
             justify-content: start;
-
             gap: 1rem;
+
+            @media (max-width: 765px) {
+              display: flex;
+              width: 100%;
+              align-items: start;
+              justify-content: center;
+              height: 100%;
+
+              div:nth-child(1),
+              div:nth-child(2),
+              div:nth-child(3),
+              div:nth-child(4) {
+                padding: 0 3px;
+              }
+
+              div:nth-child(1),
+              div:nth-child(2),
+              div:nth-child(3),
+              div:nth-child(4) {
+                height: 80%;
+                img {
+                  height: 100px;
+                  width: 70px;
+                }
+              }
+
+              div:nth-child(1) {
+                border-image: linear-gradient(
+                    greenyellow,
+                    rgba(300, 300, 300, 0.24)
+                  )
+                  27 / 2px;
+              }
+
+              div:nth-child(2) {
+                border-image: linear-gradient(cyan, rgba(300, 300, 300, 0.24))
+                  27 / 2px;
+              }
+
+              div:nth-child(3) {
+                border-image: linear-gradient(
+                    magenta,
+                    rgba(300, 300, 300, 0.24)
+                  )
+                  27 / 2px;
+              }
+
+              div:nth-child(4) {
+                border-image: linear-gradient(orange, rgba(300, 300, 300, 0.24))
+                  27 / 2px;
+                padding: 0 10px;
+              }
+            }
+
+            @media (max-width: 378px) {
+              padding: 0 100px;
+            }
 
             .card-last-pokemon {
               display: flex;
@@ -297,6 +445,12 @@ export const Wrapper = styled.section`
               height: 100%;
               gap: 10px;
               flex: 1;
+
+              @media (max-width: 765px) {
+                height: 200px;
+
+                gap: 0;
+              }
 
               strong {
                 color: #e9e9ea;
@@ -313,6 +467,11 @@ export const Wrapper = styled.section`
                 object-fit: cover;
                 box-shadow: 0 0 3px 3px rgba(300, 300, 300, 0.25);
                 border-radius: 10px;
+
+                @media (max-width: 765px) {
+                  object-fit: cover;
+                  clip-path: circle(50% at 50% 50%);
+                }
               }
             }
           }

@@ -9,5 +9,6 @@ export const Global = createGlobalStyle`
 }
 body{
     font-family: "Play", sans-serif;
+    background: #c3c3c3;
 }
 `;

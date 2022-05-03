@@ -21,6 +21,7 @@ import { FaHandRock } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { GoHome, GoX } from "react-icons/go";
 import { RiPencilFill } from "react-icons/ri";
+import { TiThMenu } from "react-icons/ti";
 
 export {
   FcGoogle,

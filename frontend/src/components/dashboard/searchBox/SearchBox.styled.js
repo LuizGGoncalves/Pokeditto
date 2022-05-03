@@ -14,6 +14,10 @@ export const Wrapper = styled.section`
   flex-direction: column;
   gap: 2ex;
 
+  @media (max-width: 765px) {
+    height: 3000px;
+  }
+
   .search-result {
     width: 100%;
     max-width: 350px;
@@ -35,6 +39,12 @@ export const Form = styled.form`
   height: 80%;
   padding: 0 9px;
   margin-top: 30px;
+
+  @media (max-width: 765px) {
+    height: 100%;
+    max-height: 500px;
+    position: fixed;
+  }
 
   li {
     list-style: none;
@@ -106,10 +116,18 @@ export const Form = styled.form`
       right: 120px;
       position: absolute;
       bottom: 0;
+
+      @media(max-width: 380px){
+        right: 0;
+      }
     }
     #all {
       position: absolute;
       bottom: 0;
+
+      @media(max-width: 268px){
+        bottom: 30px;
+      }
     }
     .options {
       display: flex;
