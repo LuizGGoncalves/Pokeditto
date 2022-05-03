@@ -41,7 +41,7 @@ Sample:
 
 ![](./frontend/src/assets/popup-search.png)
 
-![](./frontend/src/assets/)
+![](./frontend/src/assets/mobile-dashboard.png)
 
 
 
