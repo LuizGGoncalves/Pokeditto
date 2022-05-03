@@ -17,6 +17,7 @@ public class JogadorDto implements Serializable {
     @NotNull(message = "O email é Obrigatorio")
     @Email(message = "O email deve ser Valido")
     private String email;
+    private String phothoUrl;
     private Set<Pokemon> pokemons;
 
     public void setId(long id) {
@@ -49,6 +50,14 @@ public class JogadorDto implements Serializable {
 
     public Set<Pokemon> getPokemons() {
         return pokemons;
+    }
+
+    public String getPhothoUrl() {
+        return phothoUrl;
+    }
+
+    public void setPhothoUrl(String phothoUrl) {
+        this.phothoUrl = phothoUrl;
     }
 
     @Override

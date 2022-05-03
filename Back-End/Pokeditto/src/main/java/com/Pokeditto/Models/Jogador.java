@@ -31,6 +31,7 @@ public class Jogador implements Serializable , UserDetails {
     @Transient
     @Length(min = 3, max = 35 , message = "A senha deve conter de 3 a 25 caracteres")
     private String transientpassword;
+    private String phothoUrl = "https://storage.googleapis.com/pokeditto_images/default.jpg";
     @OneToMany(targetEntity = Pokemon.class, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "dono", referencedColumnName = "id")
     private Set<Pokemon> pokemons;
@@ -123,6 +124,14 @@ public class Jogador implements Serializable , UserDetails {
 
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    public String getPhothoUrl() {
+        return phothoUrl;
+    }
+
+    public void setPhothoUrl(String phothoUrl) {
+        this.phothoUrl = phothoUrl;
     }
 
     public Set<Role> getRoles() {
