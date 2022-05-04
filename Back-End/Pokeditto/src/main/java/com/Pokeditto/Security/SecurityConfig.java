@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/jogador").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/jogador/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new CustomAuthenticationFilter(authenticationManager()))

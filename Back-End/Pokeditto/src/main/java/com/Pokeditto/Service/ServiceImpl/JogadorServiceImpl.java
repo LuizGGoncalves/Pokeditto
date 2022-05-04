@@ -7,9 +7,6 @@ import com.Pokeditto.Models.dto.JogadorDto;
 import com.Pokeditto.Repository.JogadorRepository;
 import com.Pokeditto.Repository.RoleRepository;
 import com.Pokeditto.Service.JogadorService;
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 @Service
@@ -33,9 +33,6 @@ public class JogadorServiceImpl implements UserDetailsService, JogadorService {
     ModelMapper modelMapper;
     @Autowired
     RoleRepository roleRepository;
-    @Autowired
-    private Storage storage;
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Jogador jogador = jogadorRepository.findByEmail(email)
@@ -97,12 +94,13 @@ public class JogadorServiceImpl implements UserDetailsService, JogadorService {
 
     @Override
     public void jogadorChangePhoto(MultipartFile foto, String userEmail) throws IOException {
-        byte[] bytes = foto.getBytes();
         Jogador jogador = jogadorRepository.findByEmail(userEmail).orElseThrow(() -> new UsernameNotFoundException("Usuario nao encontrado"));
-        BlobId blobId = BlobId.of("pokeditto_images", jogador.getId() + ".jpg");
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setCacheControl("private, max-age=0").setContentType("image/jpeg").build();
-        storage.create(blobInfo, bytes);
-        jogador.setPhothoUrl("https://storage.googleapis.com/pokeditto_images/" + jogador.getId() + ".jpg");
+        Path newFilePath = Path.of("src/main/resources/public/images/userImages/"+jogador.getId()+".jpg");
+        Path taregtNewFilePath =  Path.of("target/classes/public/images/userImages/"+jogador.getId()+".jpg");
+        byte[] bytes = foto.getBytes();
+        Files.write(newFilePath,bytes);
+        Files.write(taregtNewFilePath,bytes);
+        jogador.setPhothoUrl("/images/userImages/" + jogador.getId() + ".jpg");
         jogadorRepository.save(jogador);
     }
 
