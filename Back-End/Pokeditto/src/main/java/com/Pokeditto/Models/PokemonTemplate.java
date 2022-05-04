@@ -22,6 +22,8 @@ public class PokemonTemplate {
     @NotNull
     @Column(unique = true)
     private  String raca;
+    @NotNull
+    private String sprite;
 
     public PokemonTemplate() {
     }
@@ -81,5 +83,13 @@ public class PokemonTemplate {
 
     public void setRaca(String raca) {
         this.raca = raca;
+    }
+
+    public String getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(String sprite) {
+        this.sprite = sprite;
     }
 }

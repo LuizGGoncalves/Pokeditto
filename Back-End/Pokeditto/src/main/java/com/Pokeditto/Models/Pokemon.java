@@ -29,6 +29,8 @@ public class Pokemon {
     private String raca;
     @NotNull
     private Long dono;
+    @NotNull
+    private String sprite;
 
     public void upDateFrom(Pokemon pokemon) {
         if (pokemon.getName() != null) this.setName(pokemon.getName());
@@ -37,13 +39,14 @@ public class Pokemon {
     public Pokemon() {
     }
 
-    public Pokemon(long id, String name, float ataque, float defesa, float vida, long dono) {
+    public Pokemon(long id, String name, float ataque, float defesa, float vida, long dono, String sprite) {
         this.id = id;
         this.name = name;
         this.ataque = ataque;
         this.defesa = defesa;
         this.vida = vida;
         this.dono = dono;
+        this.sprite = sprite;
     }
 
     public Long getId() {
@@ -108,6 +111,18 @@ public class Pokemon {
 
     public void setRaca(String raca) {
         this.raca = raca;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(String sprite) {
+        this.sprite = sprite;
     }
 }
 
