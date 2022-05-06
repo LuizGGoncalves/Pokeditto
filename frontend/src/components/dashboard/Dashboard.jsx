@@ -64,11 +64,7 @@ const Dashboard = () => {
             className="container__sidebar__icon-BsWindowSidebar"
             onClick={() => setOption("main")}
           />
-          <BiMedal
-            value="medal"
-            className="container__sidebar__icon-BiMedal"
-            onClick={() => setOption("medal")}
-          />
+
           <IoNotificationsOutline
             value="notification"
             className="container__sidebar__icon-notification"
@@ -178,15 +174,7 @@ const Dashboard = () => {
               </section>
               {/* main */}
             </section>
-            {/*  */}
-            <section
-              className="main__container-medal"
-              style={
-                Option === "medal" ? { display: "block" } : { display: "none" }
-              }
-            >
-              {/* medal */}
-            </section>
+
             {/*  */}
             <section
               className="main__container-notification"

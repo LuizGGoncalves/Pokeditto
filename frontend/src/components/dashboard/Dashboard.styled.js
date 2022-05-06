@@ -51,7 +51,6 @@ export const Wrapper = styled.section`
 
       .container__sidebar__icon-GoHome,
       .container__sidebar__icon-BsWindowSidebar,
-      .container__sidebar__icon-BiMedal,
       .container__sidebar__icon-AiOutlineUser,
       .container__sidebar__icon-notification,
       .container__sidebar__icon-IoExitOutline {
@@ -68,9 +67,7 @@ export const Wrapper = styled.section`
       .container__sidebar__icon-BsWindowSidebar {
         color: ${(props) => (props.Option === "main" ? "#D8403C" : "#FDF7F2")};
       }
-      .container__sidebar__icon-BiMedal {
-        color: ${(props) => (props.Option === "medal" ? "#D8403C" : "#FDF7F2")};
-      }
+
       .container__sidebar__icon-AiOutlineUser {
         color: ${(props) => (props.Option === "user" ? "#D8403C" : "#FDF7F2")};
       }
