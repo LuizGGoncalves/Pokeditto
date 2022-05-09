@@ -8,7 +8,7 @@ import { privates } from "../../contexts/private";
 
 const Account = () => {
   const { image, setImage } = useContext(context);
-  const { user } = useContext(privates);
+  const { user, urlPhotoUserOnline } = useContext(privates);
   const [showPassword, setShowPassword] = useState(false);
   const [editPassword, setEditPassword] = useState(false);
   const [email, setEmail] = useState(user?.email);
@@ -96,11 +96,7 @@ const Account = () => {
           </span>
           <span className="form__header__account__setting__profile-user">
             <img
-              src={
-                image.length > 0
-                  ? image
-                  : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fst3.depositphotos.com%2F15648834%2F17930%2Fv%2F600%2Fdepositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg&f=1&nofb=1"
-              }
+              src={image.length > 0 ? image : urlPhotoUserOnline}
               alt="profile user"
               className="profile"
             />
@@ -142,14 +138,18 @@ const Account = () => {
         <fieldset className="form__body__account-setting">
           <span className="wrapper__inputs">
             <label htmlFor="displayname">display name</label>
-            <input type="text" className="input__name" value={user?.nickname} />
+            <input
+              type="text"
+              className="input__name"
+              value={user.nickname ? user.nickname : "anonimous"}
+            />
           </span>
           <span className="wrapper__inputs">
             <label htmlFor="email">email</label>
             <input
               type="email"
               className="input__email"
-              value={email}
+              value={email ? email : user.email}
               onChange={handleEditEmail}
             />
 

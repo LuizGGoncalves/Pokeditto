@@ -74,9 +74,9 @@ const Signin = ({ setLogin }) => {
         const email = user.email;
         localStorage.setItem(
           "user",
-          JSON.stringify({ nickname: name, id: uid , email: email})
+          JSON.stringify({ nickname: name, id: uid, email: email })
         );
-        setUser({ nickname: name, id: uid , email: email});
+        setUser({ nickname: name, id: uid, email: email });
         navegate("/home");
       }
     });
@@ -92,9 +92,9 @@ const Signin = ({ setLogin }) => {
         const email = user.email;
         localStorage.setItem(
           "user",
-          JSON.stringify({ nickname: name, id: uid , email:email})
+          JSON.stringify({ nickname: name, id: uid, email: email })
         );
-        setUser({ nickname: name, id: uid  , email: email});
+        setUser({ nickname: name, id: uid, email: email });
         navegate("/home");
       }
     });
@@ -119,15 +119,27 @@ const Signin = ({ setLogin }) => {
           password: changePassword,
         });
 
-        const token = await user.headers["x-access-token"];
+        const token = user.headers.authorization;
 
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            email: changeEmail,
-            token: token,
+        await api
+          .get("/jogador/online", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           })
-        );
+          .then((online) => {
+            localStorage.setItem(
+              "user",
+              JSON.stringify({
+                nickname: online.data.name,
+                email: changeEmail,
+                token: token,
+              })
+            );
+          })
+          .catch((error) => {
+            console.error(error);
+          });
 
         setUser(user);
         setChangeEmail("");

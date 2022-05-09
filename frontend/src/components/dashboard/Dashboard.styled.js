@@ -311,7 +311,7 @@ export const Wrapper = styled.section`
 
           .main__container__card-body {
             width: 100%;
-            min-width: 200px;
+            max-width: 180px;
             height: 320px;
             box-shadow: 0 0 3px 2px rgba(300, 300, 300, 0.35);
             background: #010d19;
@@ -375,6 +375,7 @@ export const Wrapper = styled.section`
             align-items: center;
             justify-content: start;
             gap: 1rem;
+            color: #0d0d0d;
 
             @media (max-width: 765px) {
               display: flex;
@@ -400,76 +401,10 @@ export const Wrapper = styled.section`
                   width: 70px;
                 }
               }
-
-              div:nth-child(1) {
-                border-image: linear-gradient(
-                    greenyellow,
-                    rgba(300, 300, 300, 0.24)
-                  )
-                  27 / 2px;
-              }
-
-              div:nth-child(2) {
-                border-image: linear-gradient(cyan, rgba(300, 300, 300, 0.24))
-                  27 / 2px;
-              }
-
-              div:nth-child(3) {
-                border-image: linear-gradient(
-                    magenta,
-                    rgba(300, 300, 300, 0.24)
-                  )
-                  27 / 2px;
-              }
-
-              div:nth-child(4) {
-                border-image: linear-gradient(orange, rgba(300, 300, 300, 0.24))
-                  27 / 2px;
-                padding: 0 10px;
-              }
             }
 
             @media (max-width: 378px) {
               padding: 0 100px;
-            }
-
-            .card-last-pokemon {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: start;
-              padding: 1rem 0;
-              height: 100%;
-              gap: 10px;
-              flex: 1;
-
-              @media (max-width: 765px) {
-                height: 200px;
-
-                gap: 0;
-              }
-
-              strong {
-                color: #e9e9ea;
-              }
-              p {
-                color: #d8403c;
-              }
-
-              img {
-                width: 100%;
-                height: 100%;
-                min-height: 200px;
-                min-width: 60px;
-                object-fit: cover;
-                box-shadow: 0 0 3px 3px rgba(300, 300, 300, 0.25);
-                border-radius: 10px;
-
-                @media (max-width: 765px) {
-                  object-fit: cover;
-                  clip-path: circle(50% at 50% 50%);
-                }
-              }
             }
           }
         }
@@ -536,7 +471,6 @@ export const Wrapper = styled.section`
                   object-fit: cover;
                   width: 100px;
                   height: 100px;
-                  clip-path: circle(50% at 50% 50%);
                 }
 
                 .icon__profile {
@@ -581,7 +515,6 @@ export const Wrapper = styled.section`
                 gap: 10px;
                 .image__cpu {
                   object-fit: cover;
-                  clip-path: circle(50% at 50% 50%);
                   width: 100px;
                   height: 100px;
                 }
@@ -657,5 +590,42 @@ export const Wrapper = styled.section`
       //main__containers
     }
     // container__main
+  }
+`;
+
+export const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  padding: 1rem 10px;
+  height: 100%;
+  gap: 10px;
+  width: 100%;
+  max-width: 200px;
+  background: #e9e9ea;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.54);
+
+  @media (max-width: 765px) {
+    height: 200px;
+
+    gap: 0;
+  }
+
+  strong {
+    color: #0d0d0d;
+  }
+  p {
+    color: #d8403c;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    min-height: 190px;
+    min-width: 50px;
+    object-fit: contain;
+    border-radius: 10px;
   }
 `;

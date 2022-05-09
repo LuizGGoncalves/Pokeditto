@@ -1,37 +1,74 @@
 import * as C from "./Dashboard.styled";
+import { api } from "../../api/api";
 import {
   FiSearch,
   IoNotificationsOutline,
   GoHome,
   BsWindowSidebar,
-  BiMedal,
   AiOutlineUser,
   IoExitOutline,
   IoMdArrowDroprightCircle,
   GoX,
   AiFillFire,
-  MdDarkMode,
+  BiWater,
 } from "../../utils/icons";
 
 import SearchBox from "./searchBox/SearchBox";
 
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { privates } from "../../contexts/private";
 import { context } from "../../contexts/context.form";
 
 const Dashboard = () => {
   const [Option, setOption] = useState("home");
+  const [photoUserOn, setPhotoUserOn] = useState("");
+  const [userAll, setUserAll] = useState();
 
   const [closeAndOpenSearchBox, setCloseAndOpenSearchBox] = useState(false);
-  const { setUser } = useContext(privates);
+  const { setUser, setUrlPhotoUserOnline } = useContext(privates);
   const navigate = useNavigate();
   const User = localStorage.getItem("user");
   const parseUser = JSON.parse(User);
+
   const { image } = useContext(context);
+
+  useEffect(() => {
+    async function handleGetPhotoUserOnline() {
+      const getToken = JSON.parse(localStorage.getItem("user"));
+      const { token } = getToken;
+      const regex = /^\/./g;
+
+      await api
+        .get("/jogador/online", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setPhotoUserOn(
+            regex.test(res.data.phothoUrl)
+              ? `https://pokeditto-api.herokuapp.com${res.data.phothoUrl}`
+              : `https://pokeditto-api.herokuapp.com/${res.data.phothoUrl}`
+          );
+          setUrlPhotoUserOnline(
+            regex.test(res.data.phothoUrl)
+              ? `https://pokeditto-api.herokuapp.com${res.data.phothoUrl}`
+              : `https://pokeditto-api.herokuapp.com/${res.data.phothoUrl}`
+          );
+          setUserAll(res.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+
+    handleGetPhotoUserOnline();
+  }, []);
 
   const handlExitUser = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("password");
     const token = localStorage.getItem("token");
 
     if (token) localStorage.removeItem("token");
@@ -90,18 +127,14 @@ const Dashboard = () => {
               <span className="menu__wrapper-icons">
                 <FiSearch
                   className="menu__icon-FiSearch"
-                  onClick={() => setCloseAndOpenSearchBox((prev) => true)}
+                  onClick={() => setCloseAndOpenSearchBox(() => true)}
                 />
               </span>
               <div className="menu__profile-user" onClick={handleRedirect}>
-                {User ? parseUser.nickname : "..."}
+                {User ? parseUser.nickname : "anonimous"}
                 <img
                   className="menu__user-avatar"
-                  src={
-                    image.length > 0
-                      ? image
-                      : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.anatPcl_p0X4_qBigcUZHwHaHa%26pid%3DApi&f=1"
-                  }
+                  src={image.length > 0 ? image : photoUserOn}
                 />
               </div>
             </menu>
@@ -136,15 +169,21 @@ const Dashboard = () => {
                 <div className="menu__batle-characters">
                   <div className="player">
                     <strong className="name__player">player</strong>
-                    <p className="name__character">umbreon</p>
+                    <p className="name__character">
+                      {userAll && userAll.pokemons[0].name}
+                    </p>
                     <div className="profile__player">
                       <img
-                        src="https://i.pinimg.com/564x/83/2a/a6/832aa691c3b028308f4e145fdc246bb8.jpg"
+                        src={`https://pokeditto-api.herokuapp.com${
+                          userAll
+                            ? userAll.pokemons[0].sprite
+                            : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F51%2Fe8%2Fdc%2F51e8dcca06d60fb3997d8f0235ad720c.jpg&f=1&nofb=1"
+                        }`}
                         alt="image profile"
                         className="image__user"
                       />
                       <p className="icon__profile">
-                        <MdDarkMode className="icon" />
+                        <BiWater className="icon" />
                       </p>
                     </div>
                   </div>
@@ -153,7 +192,7 @@ const Dashboard = () => {
                     <p className="name__character">charmeleon</p>
                     <div className="profile__cpu">
                       <img
-                        src="https://i.pinimg.com/564x/ca/c9/55/cac955ec7c57810951a12cddbda3aaa2.jpg"
+                        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F37%2F83%2Fb4%2F3783b47987aef2a15c1b24a10a8b434c.png&f=1&nofb=1"
                         alt="image cpu"
                         className="image__cpu"
                       />
@@ -197,15 +236,9 @@ const Dashboard = () => {
                 <div className="main__container__card-body">
                   <div className="main__container__wrapper-card">
                     <strong className="main__container__user-description">
-                      {User ? parseUser.nickname : "..."}
+                      {User ? parseUser.nickname : "anonimous"}
                     </strong>
-                    <img
-                      src={
-                        image.length > 0
-                          ? image
-                          : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.anatPcl_p0X4_qBigcUZHwHaHa%26pid%3DApi&f=1"
-                      }
-                    />
+                    <img src={image.length > 0 ? image : photoUserOn} />
                     <p className="main__container__user-level">level 0</p>
                     <span className="main__container__progress-bar">
                       <span className="progress"></span>
@@ -214,30 +247,21 @@ const Dashboard = () => {
                 </div>
 
                 <div className="main__container-card-last-pokemon">
-                  <div className="card-last-pokemon">
-                    <strong>snivy</strong>
-                    <p>grass</p>
-                    <span className="pokemon"></span>
-                    <img src="https://i.pinimg.com/564x/e6/7d/a1/e67da16f1c0f1e092c39494827912783.jpg" />
-                  </div>
-                  <div className="card-last-pokemon">
-                    <strong>lucario</strong>
-                    <p>fighting</p>
-                    <span className="pokemon"></span>
-                    <img src="https://i.pinimg.com/736x/67/2e/13/672e13dfd7d3e90d9482dccbc7d8298b.jpg" />
-                  </div>
-                  <div className="card-last-pokemon">
-                    <strong>mew</strong>
-                    <p>psychic</p>
-                    <span className="pokemon"></span>
-                    <img src="https://i.pinimg.com/564x/7b/58/c2/7b58c27a79bac67f85b06b0d92015b8b.jpg" />
-                  </div>
-                  <div className="card-last-pokemon">
-                    <strong>alakazam</strong>
-                    <p>psychic</p>
-                    <span className="pokemon"></span>
-                    <img src="https://i.pinimg.com/564x/7e/ea/a0/7eeaa02d0d935182fb16f1054d1ace10.jpg" />
-                  </div>
+                  {userAll &&
+                    userAll.pokemons.map((pokemon, index) =>
+                      index >= 0 && index < 4 ? (
+                        <C.Card key={pokemon.name}>
+                          <strong>{pokemon.name}</strong>
+                          <p>{pokemon.tipo}</p>
+                          <span className="pokemon"></span>
+                          <img
+                            src={`https://pokeditto-api.herokuapp.com${pokemon.sprite}`}
+                          />
+                        </C.Card>
+                      ) : (
+                        ""
+                      )
+                    )}
                 </div>
               </div>
             </section>

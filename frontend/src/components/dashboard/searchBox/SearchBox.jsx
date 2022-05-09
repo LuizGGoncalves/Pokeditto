@@ -1,21 +1,43 @@
 import * as C from "./SearchBox.styled";
 import { FiSearch, CgPokemon, IoCloseSharp } from "../../../utils/icons";
-import get from "../../../mock/pokemon.json";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { api } from "../../../api/api";
 
 const SearchBox = ({ setCloseAndOpen }) => {
   const [search, setSearch] = useState("");
   const [all, setAll] = useState(false);
   const [poke, setPoke] = useState(false);
   const [controlOption, setControlOption] = useState("");
+  const [user, setUser] = useState();
 
   const handleSearchInput = (event) => {
     setSearch(event.target.value);
   };
+
+  async function handleGetPokemons() {
+    const getToken = JSON.parse(localStorage.getItem("user"));
+    const { token } = getToken;
+
+    await api
+      .get("/jogador/online", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   const handleSetAllSearch = () => {
     setAll(true);
     setPoke(false);
     setControlOption("all");
+
+    setTimeout(handleGetPokemons, 10000);
   };
   const handleSetPokeSearch = () => {
     setAll(false);
@@ -26,6 +48,27 @@ const SearchBox = ({ setCloseAndOpen }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+
+  useEffect(() => {
+    const handleGetUniquePokemonsUserOnline = async () => {
+      const getToken = JSON.parse(localStorage.getItem("user"));
+      const { token } = getToken;
+
+      await api
+        .get("/jogador/online", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setUser(res.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    handleGetUniquePokemonsUserOnline();
+  }, []);
 
   return (
     <C.Wrapper all={all} poke={poke}>
@@ -64,7 +107,7 @@ const SearchBox = ({ setCloseAndOpen }) => {
               }
             >
               all
-              <span className="count">{get.pokemons.length}</span>
+              <span className="count">{user && user.pokemons.length}</span>
             </li>
             <li
               className="options"
@@ -79,14 +122,17 @@ const SearchBox = ({ setCloseAndOpen }) => {
             >
               pokemons
               <CgPokemon className="pokeball" />
-              <span className="count">{get.pokemons.length}</span>
+              <span className="count">{user && user.pokemons.length}</span>
             </li>
           </ul>
         </header>
         <div className="form__show-results">
-          {controlOption === "poke"
-            ? get.pokemons.filter((value) => value === search && <p key={value}>{value}</p>)
-            : get.pokemons.map((all) => <p key={all}>{all}</p>)}
+          {user && controlOption === "poke"
+            ? user.pokemons.map(
+                (pokemons) => pokemons.name === search && <p>{pokemons.name}</p>
+              )
+            : user &&
+              user.pokemons.map((all, index) => <p key={index}>{all.name}</p>)}
         </div>
       </C.Form>
     </C.Wrapper>
