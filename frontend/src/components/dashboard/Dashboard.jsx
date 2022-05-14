@@ -152,10 +152,17 @@ const Dashboard = () => {
                 <h1 className="home__title">
                   it's time for a tea house party!
                 </h1>
-                <button className="home__button-play">
-                  play now
-                  <IoMdArrowDroprightCircle className="home__button-icon-IoMdArrowDroprightCircle" />
-                </button>
+                <a
+                  className="home__ancor"
+                  href="https://play.unity.com/mg/other/projectgame-1"
+                  target="_blank"
+                  style={{ textDecoration: "none" }}
+                >
+                  <button className="home__button-play">
+                    play now
+                    <IoMdArrowDroprightCircle className="home__button-icon-IoMdArrowDroprightCircle" />
+                  </button>
+                </a>
               </header>
             </section>
             {/*  */}
@@ -253,14 +260,12 @@ const Dashboard = () => {
                         <C.Card key={pokemon.name}>
                           <strong>{pokemon.name}</strong>
                           <p>{pokemon.tipo}</p>
-                          <span className="pokemon"></span>
+
                           <img
                             src={`https://pokeditto-api.herokuapp.com${pokemon.sprite}`}
                           />
                         </C.Card>
-                      ) : (
-                        ""
-                      )
+                      ) : ""
                     )}
                 </div>
               </div>

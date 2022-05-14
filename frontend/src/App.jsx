@@ -42,7 +42,14 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/home/account" element={ <PrivateRoute><Account /> </PrivateRoute>} />
+        <Route
+          path="/home/account"
+          element={
+            <PrivateRoute>
+              <Account />{" "}
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Routers>
   );
